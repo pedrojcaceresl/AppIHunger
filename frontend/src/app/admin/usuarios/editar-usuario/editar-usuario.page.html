@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" defaultHref="/admin/usuarios"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="outer"
+      [ngStyle]="{'background-image': 'url(' + photo + ')'}">
+        <div class="inner" (click)="openOptionSelection()">
+           <ion-icon name="camera" class="camera-icon"></ion-icon>
+        </div>
+     </div>
+    <!-- <ion-avatar class="outer" >
+      <img [src]="this.resultadoImagen" alt="">
+      <div class="inner" (click)="openOptionSelection()">
+
+        <ion-icon name="camera" class="camera-icon"></ion-icon>
+      </div>
+
+    </ion-avatar> -->
+
+  </div>
+  <form [formGroup]="editarUsuarioForm" (ngSubmit)="editarUsuario()" >
+   
+  <!--   <div class="container">
+      <div class="outer" >
+        <img [src]="this.domSanitizer.bypassSecurityTrustResourceUrl(this.myImage64)" alt="">
+        
+        <div class="inner" (click)="openOptionSelection()">
+
+          <ion-icon name="camera" class="camera-icon"></ion-icon>
+        </div>
+
+      </div>
+
+    </div> -->
+
+    
+    <ion-list>
+      <ion-item lines="full">
+        <ion-label position="floating">Nombre y Apellido</ion-label>
+        <ion-input
+          ngModel="{{this.nombre}}"
+          type="text"
+          value="usuario.usu_nombre"
+          formControlName="usu_nombre"
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+          ngModel="{{this.email}}"
+          type="email"
+          value="usuario.usu_email"
+          formControlName="usu_email"
+        ></ion-input>
+      </ion-item>
+      
+      <ion-item lines="full">
+        <ion-label position="floating">Telefono</ion-label>
+        <ion-input
+          ngModel="{{this.telefono}}"
+          type="text"
+          value="usuario.usu_telefono"
+          formControlName="usu_telefono"
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Contraseña de acceso</ion-label>
+        <ion-input
+          ngModel="{{this.password}}"
+          type="text"
+          value="usuario.usu_password"
+          formControlName="usu_password"
+        ></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" type="submit"
+            >Guardar!</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </form>
+</ion-content>

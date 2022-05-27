@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>finalizar-pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1>
+    Resumen de mi pedido
+  </h1>
+  
+  <ion-list>
+    <ion-item *ngFor="let item of cartResult" >
+      <ion-label>{{item.descripcion}}</ion-label>
+      <ion-label>{{item.precio}}</ion-label>
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+
+<ion-footer>
+  <!--   <ion-button expand="block" (click)="openModal()">Show Sheet Modal</ion-button> -->
+    <ion-toolbar>
+      
+      <ion-button expand="block" color="primary" routerLink="/success">
+
+                Finalizar pedido
+      </ion-button>
+  
+    </ion-toolbar>
+  </ion-footer>

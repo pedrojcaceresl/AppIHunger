@@ -1,0 +1,20 @@
+.numberCircle {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: inline-flex;
+    background: #fff;
+    border: 2px solid rgb(255, 255, 255);
+    flex-grow: 0;
+    padding: 0;
+}
+
+.numberCircle span {
+    color: #666;
+    text-align: center;
+    font: 12px Arial, sans-serif;
+    width: 25px;
+    display: inline-block;
+    margin: auto;
+    font-weight: bold;
+}

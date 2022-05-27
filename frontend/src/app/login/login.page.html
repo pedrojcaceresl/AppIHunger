@@ -1,0 +1,78 @@
+<ion-app>
+  <ion-content>
+  
+  
+    <ion-grid>
+  
+  
+      <ion-row>
+        <ion-col size="1"></ion-col>
+  
+        <ion-col>
+          <div class="ion-text-center">
+            <img class="logo" src="/assets/logoHunger.png" alt="Logo" >
+
+          </div>
+            <ion-slides>
+              <ion-slide>
+                <img src="https://previews.123rf.com/images/marigisina/marigisina2002/marigisina200200015/141157104-freunde-treffen-sich-in-einer-pizzeria-oder-einem-fastfood-restaurant-und-genie%C3%9Fen-das-abendessen-un.jpg" alt="">
+              </ion-slide>
+            </ion-slides>
+  
+        </ion-col>
+  
+        <ion-col size="1"></ion-col>
+  
+      </ion-row>
+  
+  
+  
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Usuario/Email</ion-label>
+            <ion-input type="email" placeholder="example@mail.com"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" placeholder="Contraseña"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+  
+      <ion-row >
+        <ion-col size="1"></ion-col>
+        <ion-col>
+          <ion-button class="botoncito" expand="block" [routerLink]="['/home']" routerLinkActive="router-link-active" >Iniciar Sesión</ion-button>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+  
+    </ion-grid>
+  
+  </ion-content>
+  <ion-footer>
+    <ion-toolbar>
+      <div class="ion-text-center" >
+        <ion-label >Aun no tienes una cuenta? <strong [routerLink]="['/registro-usuario']">Regístrate!</strong></ion-label>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
+
+</ion-app>

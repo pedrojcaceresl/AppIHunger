@@ -1,0 +1,62 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>registro-usuario</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <form [formGroup]="registroUsuarioForm" (ngSubmit)="registrar()">
+
+    <ion-slides>
+      <ion-slide>
+        <img src="https://previews.123rf.com/images/marigisina/marigisina2002/marigisina200200015/141157104-freunde-treffen-sich-in-einer-pizzeria-oder-einem-fastfood-restaurant-und-genie%C3%9Fen-das-abendessen-un.jpg" alt="">
+      </ion-slide>
+    </ion-slides>
+
+    <ion-title class="ion-margin"><strong>Completa tus datos para el Registro</strong></ion-title>
+      <ion-card-content>
+        
+
+        <ion-item>
+          <ion-label position="floating">Nombre:</ion-label>
+          <ion-input type="text" formControlName="nombre" ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Apellido:</ion-label>
+          <ion-input type="text" formControlName="apellido"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Nº Celular: </ion-label>
+          <ion-input type="tel" placeholder="09XX -XXX-XXX" formControlName="telefono" ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Email: </ion-label>
+          <ion-input
+            type="email" placeholder="ejemplo@gmail.com" formControlName="email" ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Contraseña: </ion-label>
+          <ion-input
+            type="password" placeholder="" formControlName="password" ></ion-input>
+        </ion-item>
+
+      </ion-card-content>
+     <!--  <ion-button class="btnguardar" type="submit"  [disabled]="!registroUsuarioForm.valid" ><ion-icon name="checkmark"></ion-icon> </ion-button> -->
+     <ion-grid>
+      <ion-row >
+        <ion-col size="1"></ion-col>
+        <ion-col>
+          <ion-button class="botoncito"  expand="block" [routerLink]="['/usuario-creado']" routerLinkActive="router-link-active" >Iniciar Sesión</ion-button>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+     </ion-grid>
+     
+     <!--  <ion-button class="btncancelar"> <ion-icon name="close" ></ion-icon> </ion-button> -->
+    
+  </form>
+</ion-content>

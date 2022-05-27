@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" defaultHref="/admin/categorias"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Categoria</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!--   <div class="container">
+    <ion-avatar class="outer" >
+      <img [src]="this.resultadoImagen" alt="">
+      <div class="inner" >
+
+        <ion-icon name="camera" class="camera-icon"></ion-icon>
+      </div>
+
+    </ion-avatar>
+
+  </div> -->
+  <form [formGroup]="editarCategoriaForm" (ngSubmit)="updateCategoria()" >
+   
+  <!--   <div class="container">
+      <div class="outer" >
+        <img [src]="this.domSanitizer.bypassSecurityTrustResourceUrl(this.myImage64)" alt="">
+        
+        <div class="inner" (click)="openOptionSelection()">
+
+          <ion-icon name="camera" class="camera-icon"></ion-icon>
+        </div>
+
+      </div>
+
+    </div> -->
+
+    
+    <ion-list>
+      <ion-item lines="full">
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input
+          ngModel="{{this.nombre}}"
+          type="text"
+          value="nombre"
+          formControlName="cat_nombre"
+        ></ion-input>
+      </ion-item>
+
+      
+      <ion-item lines="full">
+        <ion-label position="floating">Descripcion</ion-label>
+        <ion-input
+          ngModel="{{this.descripcion}}"
+          type="text"
+          value="descripcion"
+          formControlName="cat_descripcion"
+        ></ion-input>
+      </ion-item>
+      
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" type="submit"
+            >Guardar!</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </form>
+</ion-content>
