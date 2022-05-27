@@ -38,7 +38,11 @@ const UsuarioModel = sequelize.define('usuario', {
         type: DataTypes.TEXT,
         allowNull: true
             // allowNull defaults to true   
-    }
+    },
+    usu_token: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
 }, {
     // Other model options go here
     tableName: 'usuarios',
