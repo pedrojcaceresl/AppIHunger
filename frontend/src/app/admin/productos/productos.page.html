@@ -11,25 +11,26 @@
 
 
 <ion-content class="ion-padding">
-  <ion-searchbar
+  <!-- <ion-searchbar
     placeholder="Buscar"
     (ionChange)="buscarProducto($event)"
     debounce="100"
-  ></ion-searchbar>
+  ></ion-searchbar> -->
 
   <ion-list *ngFor="let producto of productos; let index = i">
     <ion-item-sliding #slidingItem>
       <ion-item
         button
         class="item-label item ios in-list ion-focusable hydrated"
-        [routerLink]="['/admin/productos/editar-producto/'  + this.producto.prod_codigo]"
       >
         <ion-avatar slot="start">
-          <img src="https://cdn-icons-png.flaticon.com/512/4139/4139981.png" />
+          <img *ngIf="producto.pro_img"  src="{{producto.pro_img}}" />
+          <img   src="https://cdn-icons-png.flaticon.com/512/1524/1524855.png" />
+
         </ion-avatar>
         <ion-label>
-          <h2>{{this.producto.prod_nombre}}</h2>
-          <h3>{{this.producto.prod_email}}</h3>
+          <h2>{{this.producto.pro_descripcion}}</h2>
+          <h3>{{this.producto.pro_precio}}</h3>
         </ion-label>
       </ion-item>
 

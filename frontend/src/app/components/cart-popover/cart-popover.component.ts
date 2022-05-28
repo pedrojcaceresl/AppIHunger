@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../../services/localStorage.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartPopoverComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public localStorage: LocalStorageService
+  ) { }
 
   ngOnInit() {
   }

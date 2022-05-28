@@ -16,7 +16,7 @@ export class ProductosPage implements OnInit {
  
   ngOnInit() {
     this.listarProductos();
-    this.buscarProducto(event);
+   // this.buscarProducto(event);
   }
 
   ionViewWillEnter() {
@@ -30,9 +30,19 @@ export class ProductosPage implements OnInit {
     });
   }
 
-  buscarProducto(event){
-    console.log(event);
-  }
+ /*  buscarProducto(event){
+    let val = event.target.value;
+    if (val && val.trim() != '') {
+      this.productoService.filtrarProducto(val).subscribe((res) => {
+        this.productos = res.result;
+        this.productos = this.productos.filter((item) => {
+          return (item.cat_nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        })
+      });
+    } else {
+      this.listarProductos();
+    }
+  } */
 
   eliminarProducto(producto, index, slidingItem){
     console.log(producto);

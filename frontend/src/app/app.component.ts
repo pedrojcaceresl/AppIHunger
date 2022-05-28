@@ -1,6 +1,8 @@
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -23,9 +25,9 @@ export class AppComponent {
   ];
   //public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor(
-   /*  private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar */
+    private authService: AuthenticationService,
+    private router: Router,
+    private menu: MenuController
   ) {
    /*  this.initializeApp(); */
   }
@@ -36,4 +38,11 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   } */
+
+  async logout(){
+    console.log('LOGOUTT');
+    await this.authService.logout();
+    this.menu.close();
+    this.router.navigate(['/login']);
+  }
 }
