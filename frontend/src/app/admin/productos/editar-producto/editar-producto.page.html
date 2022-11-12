@@ -5,5 +5,50 @@
 </ion-header>
 
 <ion-content>
+  <!--   <div class="container">
+    <div class="outer" [ngStyle]="{'background-image': 'url(' + photo + ')'}">
+      <div class="inner" (click)="openOptionSelection()">
+        <ion-icon name="camera" class="camera-icon"></ion-icon>
+      </div>
+    </div>
+  </div> -->
+  <form [formGroup]="editarProductoForm" (ngSubmit)="editarProducto()">
+    <ion-list>
+      <ion-item lines="full">
+        <ion-label position="floating">Nombre Producto</ion-label>
+        <ion-input
+          ngModel="{{this.descripcion}}"
+          type="text"
+          value="this.productoResult.pro_descripcion"
+          formControlName="prod_descripcion"
+        ></ion-input>
+      </ion-item>
 
+      <!--       <ion-item lines="full">
+        <ion-label position="floating">Descripcion</ion-label>
+        <ion-input
+          ngModel="{{this.descripcion}}"
+          type="text"
+          value="this.productoResult.pro_descripcion"
+          formControlName="prod_descripcion"
+        ></ion-input>
+      </ion-item> -->
+
+      <ion-item lines="full">
+        <ion-label position="floating">Precio Gs</ion-label>
+        <ion-input
+          ngModel="{{this.precio}}"
+          type="text"
+          value="this.productoResult.pro_precio"
+          formControlName="prod_precio"
+        ></ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" type="submit">Guardar!</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </form>
 </ion-content>

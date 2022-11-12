@@ -1,6 +1,7 @@
-import { AutoLoginGuard } from './../guards/auto-login.guard';
 import { IntroGuard } from './../guards/intro.guard';
+import { AutoLoginGuard } from './../guards/auto-login.guard';
 import { AuthGuard } from './../guards/auth.guard';
+
 import { EditarUsuarioPageModule } from './admin/usuarios/editar-usuario/editar-usuario.module';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
@@ -38,22 +39,19 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule),
-    canLoad: [AuthGuard],
+    //canLoad: [AuthGuard],
   },
   {
     path: 'admin/usuarios/editar-usuario/:id',
     loadChildren: () => import('./admin/usuarios/editar-usuario/editar-usuario.module').then( m => m.EditarUsuarioPageModule),
-    canLoad: [AuthGuard],
   },
   {
     path: 'pedidos',
     loadChildren: () => import('./pedidos/pedidos.module').then( m => m.PedidosPageModule),
-    canLoad: [AuthGuard],
   },
   {
     path: 'menu-listado',
     loadChildren: () => import('./menu-listado/menu-listado.module').then( m => m.MenuListadoPageModule),
-    canLoad: [AuthGuard],
 
   },
   {
@@ -65,7 +63,6 @@ const routes: Routes = [
   {
     path: 'continuar-finalizar-modal',
     loadChildren: () => import('./continuar-finalizar-modal/continuar-finalizar-modal.module').then( m => m.ContinuarFinalizarModalPageModule),
-    canLoad: [AuthGuard],
   
   },
   {
@@ -75,12 +72,10 @@ const routes: Routes = [
   {
     path: 'success',
     loadChildren: () => import('./success/success.module').then( m => m.SuccessPageModule),
-    canLoad: [AuthGuard],
   },
   {
     path: 'admin/categorias/editar-categoria/:id',
     loadChildren: () => import('./admin/categorias/editar-categoria/editar-categoria.module').then( m => m.EditarCategoriaPageModule),
-    canLoad: [AuthGuard],
   },
  
  
