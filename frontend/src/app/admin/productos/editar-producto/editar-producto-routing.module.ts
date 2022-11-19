@@ -1,13 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { EditarProductoPage } from './editar-producto.page';
+import { EditarProductoPage } from "./editar-producto.page";
 
 const routes: Routes = [
   {
-    path: '',
-    component: EditarProductoPage
-  }
+    path: "",
+    component: EditarProductoPage,
+  },
+  {
+    path: ":id",
+    component: EditarProductoPage,
+  },
 ];
 
 @NgModule({

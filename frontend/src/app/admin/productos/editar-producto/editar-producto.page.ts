@@ -1,21 +1,20 @@
-import { ModalController } from '@ionic/angular';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ProductoService } from './../../../services/producto.service';
-import { Component, OnInit } from '@angular/core';
+import { ModalController } from "@ionic/angular";
+import { Router, ActivatedRoute } from "@angular/router";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { ProductoService } from "./../../../services/producto.service";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-editar-producto',
-  templateUrl: './editar-producto.page.html',
-  styleUrls: ['./editar-producto.page.scss'],
+  selector: "app-editar-producto",
+  templateUrl: "./editar-producto.page.html",
+  styleUrls: ["./editar-producto.page.scss"],
 })
 export class EditarProductoPage implements OnInit {
-
   editarProductoForm: FormGroup;
   id;
   producto;
   productoResult;
-  nombre;
+  precio;
   descripcion;
 
   constructor(
@@ -23,39 +22,39 @@ export class EditarProductoPage implements OnInit {
     private formBuilder: FormBuilder,
     public router: Router,
     public activatedRoute: ActivatedRoute,
-    public modalController: ModalController,
+    public modalController: ModalController
   ) {
-    
     this.editarProductoForm = this.formBuilder.group({
-      prod_id: [''],
-      prod_nombre: [''],
-      prod_descripcion: [''],
-
+      prod_id: [0],
+      prod_precio: [""],
+      prod_descripcion: [""],
     });
-    this.id = this.activatedRoute.snapshot.paramMap.get('id');
-   }
+    this.id = this.activatedRoute.snapshot.paramMap.get("id");
+  }
 
   ngOnInit() {
     this.getProducto(this.id);
-    this.editarProductoForm.patchValue({ prod_id: this.id });
+    this.editarProductoForm.patchValue({ prod_id: parseInt(this.id) });
   }
 
-  public async getProducto(id){
+  public async getProducto(id) {
     await this.productoService.getProductoById(id).subscribe((res) => {
       this.productoResult = res.result;
-      this.nombre = this.productoResult.prod_nombre;
-      this.descripcion = this.productoResult.prod_descripcion;
-
+      console.log("EL PRODUCTO BY ID: ", res.result);
+      this.precio = this.productoResult.pro_precio;
+      this.descripcion = this.productoResult.pro_descripcion;
     });
   }
 
-  public async updateProducto(){
-    this.productoService.actualizarProducto(this.editarProductoForm.value).subscribe((res) => {
-      if(res.success == true){
-        this.editarProductoForm.reset();
-        this.router.navigate(['/admin/productos']);
-      }
-    });
+  public async editarProducto() {
+    console.log("Valores formulario: ", this.editarProductoForm.value);
+    this.productoService
+      .actualizarProducto(this.editarProductoForm.value, this.id)
+      .subscribe((res) => {
+        if (res.success == true) {
+          this.editarProductoForm.reset();
+          this.router.navigate(["/admin/productos"]);
+        }
+      });
   }
-
 }

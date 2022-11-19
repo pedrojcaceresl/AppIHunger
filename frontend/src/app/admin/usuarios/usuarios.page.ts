@@ -29,9 +29,9 @@ export class UsuariosPage implements OnInit {
 
   buscarUsuario(event) {
     const data = event.detail.value;
-    //console.log(data);
+    console.log(data);
     this.usuarioService.filtrarUsuario(data).subscribe((res) => {
-     // console.log(res);
+      console.log(res);
       if (res) {
         this.usuarios = res["usuario"];
       } else {

@@ -9,7 +9,6 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="ion-padding">
   <!-- <ion-searchbar
     placeholder="Buscar"
@@ -22,11 +21,11 @@
       <ion-item
         button
         class="item-label item ios in-list ion-focusable hydrated"
+        [routerLink]="['/admin/productos/editar-producto/'  + this.producto.pro_id]"
       >
         <ion-avatar slot="start">
-          <img *ngIf="producto.pro_img"  src="{{producto.pro_img}}" />
-          <img   src="https://cdn-icons-png.flaticon.com/512/1524/1524855.png" />
-
+          <img *ngIf="producto.pro_img" src="{{producto.pro_img}}" />
+          <img src="https://cdn-icons-png.flaticon.com/512/1524/1524855.png" />
         </ion-avatar>
         <ion-label>
           <h2>{{this.producto.pro_descripcion}}</h2>
@@ -41,7 +40,6 @@
         >
           <ion-icon name="trash"></ion-icon>
         </ion-item-option>
-        
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
@@ -59,4 +57,3 @@
     </ion-fab-button>
   </ion-fab>
 </ion-content>
-
