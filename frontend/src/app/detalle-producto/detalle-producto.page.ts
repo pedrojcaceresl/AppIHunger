@@ -78,9 +78,10 @@ export class DetalleProductoPage implements OnInit {
     detail.obs = this.obs ? this.obs.trim() : "";
     detail.descripcion = this.producto.pro_descripcion;
     detail.producto = this.producto.pro_nombre;
-    detail.image = this.producto.image;
+    detail.image = this.producto.pro_imagen;
+
+    this.pedidoService.validarExistencia(detail);
     this.navigation.pop();
-    console.log(detail);
   }
 
   addPlus() {

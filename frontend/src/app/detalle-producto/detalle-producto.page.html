@@ -11,8 +11,8 @@
 </ion-header>
 <ion-content>
   <ion-card class="ion-padding">
-    <h2>{{producto.pro_descripcion}}</h2>
-    <p>{{producto.pro_descripcion}}</p>
+    <ion-card-title>{{producto.pro_descripcion}}</ion-card-title>
+    <ion-card-content>{{producto.pro_descripcion}}</ion-card-content>
     <h3>GS {{producto.pro_precio | number }}</h3>
   </ion-card>
 
@@ -35,18 +35,20 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Notas para este Producto</ion-card-title>
+      <ion-card-title>Notas Adicionales</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item>
+      <ion-item counter="true">
         <ion-label position="floating">
           Instrucciones Adicionales...
         </ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" maxlength="200"></ion-input>
       </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>
+
+<!-- FOOOTER -->
 <ion-footer>
   <ion-toolbar>
     <ion-button expand="block" color="primary" (click)="addNewDetail()">
@@ -57,7 +59,7 @@
           </ion-col>
           <ion-col size="8"> Agregar a mi pedido </ion-col>
           <ion-col size="3">
-            <ion-badge>Gs. {{precio}}</ion-badge>
+            <ion-badge>Gs. {{ precio | number}}</ion-badge>
           </ion-col>
         </ion-row>
       </ion-grid>
