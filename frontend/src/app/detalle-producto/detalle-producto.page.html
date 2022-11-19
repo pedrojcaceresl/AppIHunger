@@ -1,77 +1,66 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="Atrás" defaultHref="/menu-listado"></ion-back-button>
+      <ion-back-button
+        text="Atrás"
+        defaultHref="/menu-listado"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title>Detalle Producto</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  
   <ion-card class="ion-padding">
-    <h2>Titulo Plato</h2>
-  <p>Descripcion del plato</p>
-    <h3>GS XX.XXXX</h3>
-</ion-card>
+    <h2>{{producto.pro_descripcion}}</h2>
+    <p>{{producto.pro_descripcion}}</p>
+    <h3>GS {{producto.pro_precio | number }}</h3>
+  </ion-card>
 
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>Unidades</ion-card-title>
-  </ion-card-header>
-  <ion-card-content style="display: flex;">
-    <ion-buttons>
-      <ion-button (click)="addPlus()">
-        <ion-icon name="add-circle-outline" ></ion-icon>
-      </ion-button>
-      <h2>{{sumaUno}}</h2>
-      <ion-button (click)="reduceOne()">
-      <ion-icon name="remove-circle-outline" ></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-card-content>
-</ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Unidades</ion-card-title>
+    </ion-card-header>
+    <ion-card-content style="display: flex">
+      <ion-buttons>
+        <ion-button (click)="addPlus()">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-button>
+        <h2>{{sumaUno}}</h2>
+        <ion-button (click)="reduceOne()">
+          <ion-icon name="remove-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-card-content>
+  </ion-card>
 
-
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>Notas para este Producto</ion-card-title>
-  </ion-card-header>
-  <ion-card-content >
-    <ion-item>
-      <ion-label position="floating">
-        Instrucciones para su pedido
-      </ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-  </ion-card-content>
-</ion-card>
-
-
-
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Notas para este Producto</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">
+          Instrucciones Adicionales...
+        </ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 <ion-footer>
-<!--   <ion-button expand="block" (click)="openModal()">Show Sheet Modal</ion-button> -->
   <ion-toolbar>
-    
-    <ion-button expand="block" color="primary" routerLink="/menu-listado" (click)="addToCart()">
-      
-        <ion-grid>
-          <ion-row>
-            <ion-col size="1" class="numberCircle">
-              
-              <span>{{sumaUno}}</span>
-            </ion-col>
-            <ion-col size="8" >
-              Agregar a mi pedido 
-
-            </ion-col>
-            <ion-col size="3">
-              <ion-badge>Gs. {{precio}}</ion-badge>
-
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+    <ion-button expand="block" color="primary" (click)="addNewDetail()">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1" class="numberCircle">
+            <span>{{sumaUno}}</span>
+          </ion-col>
+          <ion-col size="8"> Agregar a mi pedido </ion-col>
+          <ion-col size="3">
+            <ion-badge>Gs. {{precio}}</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-button>
-
   </ion-toolbar>
 </ion-footer>
