@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Mi Carrito</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let item of productos">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+        </ion-thumbnail>
+        <ion-label>{{item.descripcion}}</ion-label>
+        <ion-badge color="primary" mode="ios">{{item.cantidad}}</ion-badge>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+
+  <ion-grid *ngIf="!productos.length">
+    <ion-row>
+      <ion-col style="height: 100px" size="1"></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="2"></ion-col>
+
+      <ion-col size="8">
+        <img src="./../../assets/images/fullCart.png" alt="" />
+      </ion-col>
+
+      <ion-col size="2"></ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <h1>Todavía no has añadido ningún producto.</h1>
+        <a routerLink="/home">Volver</a>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer *ngIf="productos.length">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle
+        >{{totalValues?.CantidadTotal?totalValues.CantidadTotal:0}} items en el
+        Carrito</ion-card-subtitle
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <!-- <ion-card-subtitle><span>SubTotal:</span> 50000</ion-card-subtitle> -->
+      <ion-card-subtitle
+        ><span>Total Pedido:</span> Gs.
+        {{totalValues?.TotalPedido?totalValues.TotalPedido:0 | number}}
+      </ion-card-subtitle>
+      <br />
+      <ion-button
+        expand="block"
+        fill="solid"
+        shape="round"
+        (click)="openModal()"
+      >
+        Finalizar Pedido
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-footer>
