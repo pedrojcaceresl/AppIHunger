@@ -100,7 +100,11 @@ const routes: Routes = [
       import(
         "./admin/categorias/editar-categoria/editar-categoria.module"
       ).then((m) => m.EditarCategoriaPageModule),
+  },  {
+    path: 'carrito',
+    loadChildren: () => import('./carrito/carrito.module').then( m => m.CarritoPageModule)
   },
+
 ];
 
 @NgModule({

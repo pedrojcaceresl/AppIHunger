@@ -1,4 +1,5 @@
-import { ProductoService } from './../services/producto.service';
+import { Producto } from "./../interfaces/Producto";
+import { ProductoService } from "./../services/producto.service";
 import { LocalStorageService } from "./../services/localStorage.service";
 import { Router } from "@angular/router";
 import { ActionSheetController } from "@ionic/angular";
@@ -11,67 +12,30 @@ import { Component, OnInit } from "@angular/core";
 })
 export class MenuListadoPage implements OnInit {
   constructor(
-    private storage: LocalStorageService,
     private actionSheetCtrl: ActionSheetController,
     private router: Router,
     private productoService: ProductoService
   ) {}
-  bandera = false;
-  productosResult
-  ngOnInit() {}
+  switch = false;
+  totalValues;
+  productos = new Array<Producto>();
+  currentId;
 
-  onClick() {
-    let obej: {
-      productoId: 1;
-      precio: 30000;
-      totalParcial: 30000;
-      cantidad: 1;
-      iva: 0;
-      totalGeneral: 30000;
-      ivaPorcent: 0;
-      estado: 2;
-      obs: "Sin tomate";
-    };
-    this.guardarAlCarrito(obej);
-
-    this.bandera = true;
-    console.log(this.bandera);
-    return (this.bandera = true);
+  ngOnInit() {
+    this.getProductos();
   }
 
-
-
-  public guardarAlCarrito(object) {
-    var a = {
-      clinteId: 1,
-      fecha: "2022/07/25",
-      comprobanteId: 1,
-      totalParcial: 0,
-      iva: 0,
-      totalGeneral: 0,
-      estado: 1,
-      gpsX: "0",
-      gpsY: "0",
-      detalles: [],
-    };
-
-    let totalGeneral = 0;
-    let totalIva = 0;
-    let totalParcial = 0;
-    object.forEach((element) => {
-      element.totalParcial = element.precio * element.cantidad;
-      element.iva = element.totalParcial * (element.ivaPorcent / 100);
-      element.totalGeneral = element.totalParcial + element.iva;
-      totalGeneral += element.totalGeneral;
-      totalParcial += element.totalParcial;
-      totalIva += element.iva;
+  getProductos() {
+    this.productoService.get().subscribe((data) => {
+      this.productos = data.result;
+      console.log(this.productos);
     });
-    a.detalles.push(object);
-    a.totalGeneral += totalGeneral;
-    a.totalParcial += totalParcial;
-    a.iva += totalIva;
+  }
 
-    this.storage.setItem("carrito", object);
+  getCategorias() {}
+
+  onClick() {
+    return (this.switch = true);
   }
 
   async openModal() {
@@ -99,12 +63,5 @@ export class MenuListadoPage implements OnInit {
     }
 
     return false;
-  }
-
-  getProductos() {
-    this.productoService.get().subscribe((data) => {
-      this.productosResult = data.result;
-      console.log(this.productosResult);
-    });
   }
 }
