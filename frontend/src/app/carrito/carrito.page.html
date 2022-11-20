@@ -49,22 +49,23 @@
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle
-        >{{totalValues?.CantidadTotal?totalValues.CantidadTotal:0}} items en el
-        Carrito</ion-card-subtitle
+        >{{this.totalAmount}} items en el Carrito</ion-card-subtitle
       >
     </ion-card-header>
     <ion-card-content>
       <!-- <ion-card-subtitle><span>SubTotal:</span> 50000</ion-card-subtitle> -->
-      <ion-card-subtitle
-        ><span>Total Pedido:</span> Gs.
-        {{totalValues?.TotalPedido?totalValues.TotalPedido:0 | number}}
-      </ion-card-subtitle>
+      <ion-item lines="none" style="--background: #19422d: transparent">
+        <ion-label>Total Pedido</ion-label>
+        <ion-label slot="end" class="ion-text-right"
+          >Gs. {{totalValues | number}}</ion-label
+        >
+      </ion-item>
       <br />
       <ion-button
         expand="block"
         fill="solid"
         shape="round"
-        (click)="openModal()"
+        (click)="goForward()"
       >
         Finalizar Pedido
       </ion-button>
