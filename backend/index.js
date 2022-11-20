@@ -1,66 +1,47 @@
-const express = require('express');
-const multer = require('multer');
-const bodyParser = require('body-parser');
+// Importing the dependencies
+const express = require("express");
+require("dotenv").config();
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const { Server } = require("socket.io");
+const PORT = process.env.PORT;
+
+const { imageModel: imageModel } = require("./src/models/image.model");
+const io = new Server();
+
+// Defining Expresss app
 const app = express();
-const cors = require('cors');
-const PORT = 3000;
-const mime = require('mime');
-const fs = require('file-system');
 
-const { imageModel: imageModel } = require('./src/models/image.model');
-
-//const upload = multer ({dest: 'uploads/'}); 
-
-
-//app.use(bodyParser.json());
-
-//Routes del Caso de Uso
-app.use(bodyParser.urlencoded({
-    limit: "50mb",
-    extended: false
-}));
-
+// Using bodyParser to parse JSON bodies into JS objects
 app.use(bodyParser.json({ limit: "500mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: false,
+  })
+);
 
-app.use(cors({
-    origin: '*'
-}));
-//require('./src/routes/eventos.routes')(app);
-require('./src/routes/usuarios.routes')(app);
-require('./src/routes/pedidos.routes')(app);
-require('./src/routes/categorias.routes')(app);
-require('./src/routes/producto.routes')(app);
-require('./src/routes/comprobante.routes')(app);
-require('./src/routes/pedidos.routes')(app);
+// Enable CORS for all requests
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
-const findImage = async(req, res) => {
-    const codigo = req.params.id;
-    const image = await imageModel.findByPk(codigo);
-    if (image === null) {
-        console.log('Not found!');
-    } else {
-        const result = image;
-        console.log(image instanceof imageModel); // true
-        res.status(200).send({ 'Ok': true, result })
-            // Its primary key is 123
-    }
-}
+// Endpoints
+require("./src/routes/usuarios.routes")(app);
+require("./src/routes/pedidos.routes")(app);
+require("./src/routes/categorias.routes")(app);
+require("./src/routes/producto.routes")(app);
+require("./src/routes/comprobante.routes")(app);
+require("./src/routes/pedidos.routes")(app);
 
-app.get('/upload/:id', findImage);
-
-app.post('/hello', (req, res) => {
-    console.log(req);
-    file = req.body;
-    console.log(file);
-    res.status(200).send(file)
+// Socket server event
+io.on("connection", (socket) => {
+  console.log(`A user with ${socket.id} is connected`);
 });
 
-
-//require('./src/routes/categorias.routes')(app);
-
-
-
-
+// Starting the server
 app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
+  console.log(`Listening on port ${PORT}`);
 });
