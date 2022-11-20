@@ -1,16 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { CarritoService } from "./carrito.service";
-import { element } from "protractor";
 import { Pedido } from "../models/Pedido";
 import { Usuario } from "./../models/Usuario";
 import { Detalle } from "./../models/Detalle";
 import { Injectable } from "@angular/core";
-import { EventEmitter } from "stream";
-import { stringify } from "querystring";
 import { environment } from "src/environments/environment";
 import { DatePipe } from "@angular/common";
-import { LocalStorageService } from "./localStorage.service";
 
 @Injectable({
   providedIn: "root",
@@ -152,7 +148,7 @@ export class PedidoService {
     localStorage.setItem("cabecera", JSON.stringify(cabecera));
   }
 
-  SendPedido() {
+  sendPedido() {
     let datosCabecera = JSON.parse(localStorage.getItem("cabecera"));
 
     let sedDatos = {

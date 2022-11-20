@@ -14,6 +14,15 @@ export class LocalStorageService {
     return item ? JSON.parse(item) : [];
   }
 
+  /**Get a String from the local storage
+   * Receives a key as a parameters
+   * Returns a string
+   */
+  public getString(key: string) {
+    let item = localStorage.getItem(key);
+    return item ? item : "";
+  }
+
   public setItem(key: string, object: any) {
     localStorage.setItem(key, JSON.stringify(object));
   }
