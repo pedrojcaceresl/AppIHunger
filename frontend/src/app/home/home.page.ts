@@ -1,8 +1,12 @@
-import { CartPopoverComponent } from '../components/cart-popover/cart-popover.component';
+import { CartPopoverComponent } from "../components/cart-popover/cart-popover.component";
 import { LocalStorageService } from "./../services/localStorage.service";
 import { ProductoService } from "./../services/producto.service";
 import { CategoriaService } from "./../services/categoria.service";
-import { MenuController, PopoverController } from "@ionic/angular";
+import {
+  MenuController,
+  NavController,
+  PopoverController,
+} from "@ionic/angular";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -21,8 +25,8 @@ export class HomePage implements OnInit {
     public categoriaService: CategoriaService,
     public productoService: ProductoService,
     public localStorage: LocalStorageService,
-    public popoverController: PopoverController
-  
+    public popoverController: PopoverController,
+    public navCtrl: NavController
   ) {}
 
   ngOnInit() {
@@ -49,7 +53,7 @@ export class HomePage implements OnInit {
 
   getProductos() {
     this.productoService.get().subscribe((data) => {
-      this.productosResult = data.result;
+      this.productosResult = data.result.slice(0, 5);
       console.log(this.productosResult);
     });
   }
@@ -60,9 +64,9 @@ export class HomePage implements OnInit {
       this.products = JSON.parse(localStorage.getItem("cart"));
     }
     this.cart.push({
-      'productId': producto.pro_id + 1,
-      'descripcion': producto.pro_descripcion,
-      'precio': producto.pro_precio,
+      productId: producto.pro_id + 1,
+      descripcion: producto.pro_descripcion,
+      precio: producto.pro_precio,
     });
     this.localStorage.setItem("cart", this.cart);
     console.log(this.cart);
@@ -74,13 +78,17 @@ export class HomePage implements OnInit {
     console.log(this.cart);
   }
 
-  async openCartModal(ev: any) {
-    const popover = await this.popoverController.create({
-      component: CartPopoverComponent,
-      event: ev,
-      translucent: false
-    });
-  
-    await popover.present();
+  // async openCartModal(ev: any) {
+  //   const popover = await this.popoverController.create({
+  //     component: CartPopoverComponent,
+  //     event: ev,
+  //     translucent: false,
+  //   });
+
+  //   await popover.present();
+  // }
+
+  goToCart() {
+    this.navCtrl.navigateForward("/carrito");
   }
 }

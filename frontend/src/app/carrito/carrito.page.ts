@@ -25,20 +25,25 @@ export class CarritoPage implements OnInit {
   categorias = [];
 
   totalValues;
-
+  totalAmount;
+  dataFromStorage;
   ngOnInit() {
     this.getProductos();
-    this.totalValues = JSON.parse(localStorage.getItem("Totalpedido"));
-    console.log("TOTAL VALUEEEESSSS ", this.totalValues);
+    this.dataFromStorage = JSON.parse(localStorage.getItem("Totalpedido"));
+    this.totalValues = this.dataFromStorage?.TotalPedido
+      ? this.dataFromStorage.TotalPedido
+      : 0;
+    this.totalAmount = this.dataFromStorage.CantidadTotal
+      ? this.dataFromStorage.CantidadTotal
+      : 0;
     this.carritoService.updateCarritoStatus(false);
   }
 
   getProductos() {
     this.productos = this.pedidoService.getDetalles();
-    console.log("LOS PRODUCTOSSSS CARRITO ", this.productos);
   }
 
-  openModal() {
+  goForward() {
     this.navCtrl.navigateForward("/finalizar-pedido");
     console.log("Se ha finalizado el pedido");
   }
