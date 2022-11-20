@@ -6,13 +6,28 @@ const fs = require("file-system");
 const { request } = require("express");
 const jwt = require("jsonwebtoken");
 
+/**
+ * List all users
+ * @param {*} query
+ * @param {number} pageStart - The start page limit
+ * @param {number} pageLimit - The page limit
+ * @todo There are a lot of things
+ * @returns
+ */
 const list = async (query, pageStart = 0, pageLimit = 10) => {
   let result = await UsuarioModel.findAll();
-  result = result ? result : [];
+  result = result && result[0] ? result[0] : [];
   console.log(result.dataValues);
   return result;
 };
 
+/**
+ * This function is to filter users by queries
+ * @param {string} query
+ * @param {number} pageStart
+ * @param {number} pageLimit
+ * @returns object with the data
+ */
 const listFilter = async (query, pageStart = 0, pageLimit = 10) => {
   let usuariosResult = await sequelize.query(
     `SELECT * FROM usuarios WHERE (UPPER(usu_nombre) LIKE :q
@@ -29,6 +44,11 @@ const listFilter = async (query, pageStart = 0, pageLimit = 10) => {
   return usuariosResult;
 };
 
+/**
+ * Retrieves a user by passing and id as a parameter
+ * @param {number} usu_codigo
+ * @returns a specific user
+ */
 const getById = async (usu_codigo) => {
   //Buscar en la BD por codigo
   const usuarioModelResult = await UsuarioModel.findByPk(usu_codigo);

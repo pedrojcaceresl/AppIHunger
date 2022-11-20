@@ -1,15 +1,17 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("ihunger", "postgres", "admin", {
+const sequelize = new Sequelize("postgres", "postgres", "admin", {
   host: "localhost",
-  port: "5432",
+  port: "5438",
   dialect: "postgres",
 });
 
 const testConnection = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    console.log(
+      `Connection has been established successfully on port ${sequelize.options.port}`
+    );
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
@@ -21,4 +23,3 @@ const db = {
   sequelize,
 };
 module.exports = db;
-// module.exports = sequelize;
