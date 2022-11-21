@@ -30,17 +30,13 @@ export class CarritoPage implements OnInit {
   ngOnInit() {
     this.getProductos();
     this.dataFromStorage = JSON.parse(localStorage.getItem("Totalpedido"));
-    this.totalValues = this.dataFromStorage?.TotalPedido
-      ? this.dataFromStorage.TotalPedido
-      : 0;
-    this.totalAmount = this.dataFromStorage.CantidadTotal
-      ? this.dataFromStorage.CantidadTotal
-      : 0;
+    this.totalValues = this.dataFromStorage?.TotalPedido || 0;
+    this.totalAmount = this.dataFromStorage?.CantidadTotal || 0;
     this.carritoService.updateCarritoStatus(false);
   }
 
   getProductos() {
-    this.productos = this.pedidoService.getDetalles();
+    this.productos = this.pedidoService.getDetalles() || [];
   }
 
   goForward() {
