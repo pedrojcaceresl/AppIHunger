@@ -4,7 +4,8 @@ const { QueryTypes } = require("sequelize");
 const mime = require("mime");
 const fs = require("file-system");
 const { request } = require("express");
-const jwt = require("jsonwebtoken");
+const jwt = require("./../helpers/jwt");
+const { sendEmail } = require("./email.service");
 
 /**
  * List all users
@@ -21,13 +22,6 @@ const list = async (query, pageStart = 0, pageLimit = 10) => {
   return result;
 };
 
-/**
- * This function is to filter users by queries
- * @param {string} query
- * @param {number} pageStart
- * @param {number} pageLimit
- * @returns object with the data
- */
 const listFilter = async (query, pageStart = 0, pageLimit = 10) => {
   let usuariosResult = await sequelize.query(
     `SELECT * FROM usuarios WHERE (UPPER(usu_nombre) LIKE :q
@@ -44,12 +38,7 @@ const listFilter = async (query, pageStart = 0, pageLimit = 10) => {
   return usuariosResult;
 };
 
-/**
- * Retrieves a user by passing and id as a parameter
- * @param {number} usu_codigo
- * @returns a specific user
- */
-const getById = async (usu_codigo) => {
+const getUserById = async (usu_codigo) => {
   //Buscar en la BD por codigo
   const usuarioModelResult = await UsuarioModel.findByPk(usu_codigo);
   if (usuarioModelResult) {
@@ -59,18 +48,8 @@ const getById = async (usu_codigo) => {
   }
 };
 
-const create = async (data) => {
-  //Guardar el data en la BD
-  const usuarioModelResult = await UsuarioModel.create(data);
-  if (usuarioModelResult) {
-    return usuarioModelResult.dataValues;
-  } else {
-    return null;
-  }
-};
-
-const updateUsuarioById = async (id, data) => {
-  const usuarioModelCount = await UsuarioModel.update(data, {
+const updateUserById = async (id, data) => {
+  await UsuarioModel.update(data, {
     where: {
       usu_codigo: id,
     },
@@ -78,7 +57,7 @@ const updateUsuarioById = async (id, data) => {
   return data;
 };
 
-const removeUsuario = async (id) => {
+const removeUser = async (id) => {
   //elimina la data en la BD
   const usuarioModelCount = await UsuarioModel.destroy({
     where: {
@@ -92,117 +71,155 @@ const removeUsuario = async (id) => {
   }
 };
 
-const updateFotoPerfil = async (usu_codigo, matches, dataUrl) => {
-  //TO DO BASE64 HANDLER LOGIC
-  //let matches = req.body.base64image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
-
-  response = {};
-
-  if (matches.length !== 3) {
-    return new Error("Invalid input string");
+// USER CREATION update
+const create = async (data) => {
+  //Guardar el data en la BD
+  const usuarioModelResult = await UsuarioModel.create(data);
+  if (usuarioModelResult) {
+    return usuarioModelResult.dataValues;
+  } else {
+    return null;
   }
+};
 
-  response.type = matches[1];
-  response.data = new Buffer(matches[2], "base64");
-  let decodedImg = response;
-  let imageBuffer = decodedImg.data;
-  let type = decodedImg.type;
-  ("");
-  let extension = mime.getExtension(type);
-  let fileName = Date.now() + "." + extension;
-  try {
-    fs.writeFileSync("./images/" + fileName, imageBuffer, "utf8");
-    let file = dataUrl;
-    //console.log(file);
+const signUpAdmin = async (data) => {
+  let sql = `INSERT INTO usuarios 
+            (usu_nombre, usu_telefono, usu_email, usu_password, usu_fecha, usu_documento, usu_rol)
+            VALUES (:usu, :telefono, :email, :pass, CURENT_DATE, :docu, :rol)`;
+  let usuariosResult = await sequelize.query(sql, {
+    replacements: {
+      usu: data.usu,
+      telefono: data.telefono,
+      email: data.email,
+      pass: data.pass,
+      docu: data.docu,
+      rol: data.rol,
+    },
+  });
+  return usuariosResult;
+};
 
-    let sql =
-      "UPDATE usuarios SET usu_imagen = :imagen WHERE usu_codigo = :codigo";
-    const usuarioResult = await sequelize.query(sql, {
-      replacements: {
-        imagen: file,
-        codigo: usu_codigo,
-      },
-    });
-
-    return usuarioResult;
-  } catch (error) {
-    console.log(error.message);
-  }
+const signUpUser = async (data) => {
+  let sql = `INSERT INTO usuarios 
+            (usu_nombre, usu_telefono, usu_email, usu_password, usu_fecha, usu_documento, usu_rol)
+            VALUES (:usu, :telefono, :email, :pass, CURENT_DATE, :docu, :rol)`;
+  let usuariosResult = await sequelize.query(sql, {
+    replacements: {
+      usu: data.usu,
+      telefono: data.telefono,
+      email: data.email,
+      pass: data.pass,
+      docu: data.docu,
+      rol: "usuario",
+    },
+  });
+  return usuariosResult;
 };
 
 //AUTHORIZATION
 
 const login = async (data) => {
-  let usuariosResults = await sequelize.query(
-    `SELECT usu_codigo, usu_email, usu_token
-                                                FROM usuarios
-                                                WHERE usu_email = :n
-                                                AND usu_password = :p LIMIT 1`,
-    {
-      replacements: {
-        n: data.usu_email,
-        p: data.usu_password,
-      },
-      type: QueryTypes.SELECT,
-    }
-  );
+  let dbUser = await getUserByEmailPass(data.email, data.password);
 
-  if (usuariosResults && usuariosResults.length > 0) {
-    if (usuariosResults[0].usu_token && usuariosResults[0].usu_codigo != "") {
-      return {
-        token: usuariosResults[0].usu_token,
-      };
-    } else {
-    }
+  if (dbUser && dbUser.usu_id) {
+    let payload = { usu: dbUser.usu_id };
+    let token = await jwt.generateJWT(payload);
+    let updated = await updateToken(dbUser.usu_id, token);
 
-    const payload = {
-      usu_email: data.usu_email,
-      usu_codigo: usuariosResults[0].usu_codigo,
-    };
+    return { usuario: updated, token };
+  }
+  throw "Datos de acceso no válidos";
+};
 
-    var token = jwt.sign(payload, "comidasecreta");
+const getUserByEmailPass = async (email, pass) => {
+  let sql = `SELECT * FROM usuarios WHERE usu_password = :pass and UPPER(usu_email) = :email`;
+  let usuariosResult = await sequelize.query(sql, {
+    replacements: {
+      pass: pass,
+      email: email.toUpperCase(),
+    },
+  });
+  return usuariosResult[0][0];
+};
 
-    let updateTokenUsuarioResults = await sequelize.query(
-      `UPDATE usuarios
-                                                  SET usu_token = :t
-                                                  WHERE usu_codigo = :i`,
-      {
+const getUserByEmail = async (data) => {
+  let sql = `SELECT * FROM usuarios WHERE usu_email = :email`;
+  let result = await sequelize.query(sql, {
+    replacements: {
+      email: data,
+    },
+  });
+  return result && result[0].length > 0 && result[0][0] ? result[0][0] : null;
+};
+
+const getUserByToken = async (data) => {
+  let sql = `SELECT * FROM usuarios WHERE usu_token = :token`;
+  let result = await sequelize.query(sql, {
+    replacements: {
+      token: data.replace(`"`, ""),
+    },
+  });
+  return result && result[0].length > 0 && result[0][0] ? result[0][0] : null;
+};
+
+const logout = async (data) => {
+  let id = jwt.decodeToken(data);
+  let sql = `update usuarios set usu_token=:token 
+        WHERE 
+        usu_id=:id;`;
+
+  try {
+    if (id && id.usu_id) {
+      await sequelize.query(sql, {
         replacements: {
-          t: token,
-          i: usuariosResults[0].usu_codigo,
+          id: id.usu_id,
+          token: "",
         },
-        type: QueryTypes.SELECT,
-      }
-    );
-
-    return {
-      token,
-    };
-  } else {
-    throw new Error("DATOS DE ACCESO NO VALIDOS");
+      });
+    }
+    return true;
+  } catch (error) {
+    throw error;
   }
 };
 
-const logout = async (usuarioId) => {
-  let updateTokenUsuarioResults = await sequelize.query(
-    `UPDATE usuarios SET usu_token = null WHERE usu_codigo = :i`,
-    {
+const updateToken = async (id, token) => {
+  let sql = `UPDATED usuarios SET usu_token = : token
+             WHERE usu_id = :id 
+             returning usu_id, usu_token, usu_nombre, usu_rol, usu_email`;
+  try {
+    let result = await sequelize.query(sql, {
       replacements: {
-        i: usuarioId,
+        id: id,
+        token: token,
       },
-    }
-  );
-  return;
+    });
+    return result[0][0];
+  } catch (error) {
+    return error;
+  }
+};
+
+const retrievePassword = async (data) => {
+  const data = await getUserByEmail(data);
+
+  if (data && data.usu_email) {
+    return await sendEmail(data);
+  }
+  throw "Datos no válidos";
 };
 
 module.exports = {
   list,
   listFilter,
-  getById,
+  getUserById,
   create,
-  updateUsuarioById,
-  removeUsuario,
-  updateFotoPerfil,
+  updateUserById,
+  removeUser,
   login,
+  getUserByToken,
+  signUpUser,
   logout,
+  signUpAdmin,
+  retrievePassword,
 };
