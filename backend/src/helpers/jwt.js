@@ -1,18 +1,18 @@
 const jwt = require("jsonwebtoken");
 
-export const generateJWT = async (payload) => {
+const generateJWT = async (payload) => {
   let token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: "72h",
   });
   return token;
 };
 
-export const decodeToken = (token) => {
+const decodeToken = (token) => {
   let result = jwt.decode(token, process.env.JWT_SECRET);
   return result;
 };
 
-export const validateToken = (token) => {
+const validateToken = (token) => {
   try {
     jwt.verify(token, process.env.JWT_SECRET);
     return true;
@@ -22,7 +22,7 @@ export const validateToken = (token) => {
   }
 };
 
-export const validateAndGenerateToken = async (user) => {
+const validateAndGenerateToken = async (user) => {
   try {
     if (validateToken(user.usu_token)) return { token: user.usu_token };
   } catch (error) {
@@ -33,4 +33,11 @@ export const validateAndGenerateToken = async (user) => {
 
     return { token };
   }
+};
+
+module.exports = {
+  generateJWT,
+  decodeToken,
+  validateToken,
+  validateAndGenerateToken,
 };
