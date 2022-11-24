@@ -1,16 +1,28 @@
-const controller = require('../controllers/usuario.controller');
-const {authorization} = require("../middleware/authorization.middleware");
+const {
+  list,
+  listFilter,
+  getById,
+  login,
+  create,
+  signUpAdmin,
+  signUpUser,
+  retrievePassword,
+  update,
+  logout,
+  remove,
+} = require("../controllers/usuario.controller");
 
 module.exports = (app) => {
-
-    app.get('/usuario/list', controller.list);
-    app.get('/usuario-filter', controller.listFilter);
-    app.get('/usuario/find/:id', controller.getById);
-    app.post('/usuario/create', controller.create);
-    app.put('/usuario/update/:id', controller.update);
-    app.delete('/usuario/remove/:id',  controller.remove);
-    //app.post('/update/foto/:id', controller.updateFoto)
-    //Authentication
-    app.post("/usuario/login",  controller.login);
-    app.post("/usuario/logout", authorization, controller.logout);
-};  
+  app.get("/usuarios", list);
+  app.post("/usuario/create", create);
+  app.put("/usuario/update/:id", update);
+  app.delete("/usuario/remove/:id", remove);
+  app.get("/usuario/filter", listFilter);
+  app.get("/usuario/find/:id", getById);
+  app.post("/usuario/registrar/adm", signUpAdmin);
+  app.post("/usuario/registrar", signUpUser);
+  //Authentication
+  app.post("/usuario/login", login);
+  app.get("/usuario/recuperar/:email", retrievePassword);
+  app.post("/usuario/logout", logout);
+};
