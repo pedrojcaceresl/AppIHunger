@@ -14,9 +14,34 @@ const list = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  try {
+    req.headers;
+    let result = await usuariosService.logout(req.headers["x-token"]);
+    res.status(200).send({
+      result,
+    });
+  } catch (error) {}
+};
+
+const login = async (req, res) => {
+  try {
+    const usuario = await usuariosService.login(req.headers["x-token"]);
+
+    res.status(200).send({
+      result,
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      result: error.message,
+    });
+  }
+};
+
 const listFilter = async (req, res) => {
   try {
-    const usuario = await usuariosService.listFilter(req.query.q);
+    const usuario = await usuariosService.listFilter(req.params.q);
     res.status(200).send({
       success: true,
       result: usuario,
@@ -32,13 +57,59 @@ const listFilter = async (req, res) => {
 const getById = async (req, res) => {
   try {
     const usuario = await usuariosService.getById(req.params.id);
-    let jsonResultado = req.query;
     res.status(201).send({
       success: true,
       result: usuario,
     });
   } catch (error) {
     res.status(400).send({
+      success: false,
+      result: error.message,
+    });
+  }
+};
+0;
+
+const retrievePassword = async (req, res) => {
+  try {
+    const result = await usuariosService.retrievePassword(req.params.email);
+
+    res.status(201).send({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      result: error.message,
+    });
+  }
+};
+
+const signUpAdmin = async (req, res) => {
+  try {
+    const result = await usuariosService.signUpAdmin(req.body);
+    res.status(202).send({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      result: error.message,
+    });
+  }
+};
+
+const signUpUser = async (req, res) => {
+  try {
+    const result = await usuariosService.signUpUser(req.body);
+    req.status(202).send({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    req.status(400).send({
       success: false,
       result: error.message,
     });
@@ -92,44 +163,6 @@ const remove = async (req, res) => {
   }
 };
 
-const updateFoto = async (req, res) => {
-  let matches = req.body.dataUrl.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
-  dataUrl = req.body.dataUrl;
-  const imagen = await usuariosService.updateFotoPerfil(
-    req.params.id,
-    matches,
-    dataUrl
-  );
-  res.status(202).send({
-    success: { imagen },
-  });
-};
-
-const login = async (req, res) => {
-  try {
-    const usuario = await usuariosService.login(req.body);
-
-    res.status(200).send({
-      success: true,
-      token: usuario.token,
-    });
-  } catch (error) {
-    res.status(200).send({
-      success: false,
-      error: error.message,
-    });
-  }
-};
-
-const logout = async (req, res) => {
-  await usuariosService.logout(req.usuarioId);
-
-  res.status(200).send({
-    success: true,
-    message: "Logout exitoso"
-  });
-};
-
 module.exports = {
   list,
   listFilter,
@@ -137,7 +170,9 @@ module.exports = {
   create,
   update,
   remove,
-  updateFoto,
   login,
   logout,
+  signUpAdmin,
+  signUpUser,
+  retrievePassword,
 };
