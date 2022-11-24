@@ -12,12 +12,24 @@ const productoModel = sequelize.define("producto", {
         type: DataTypes.INTEGER,
         allowNull: true
     },
+    image: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    pro_empresaId: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
 
     pro_precio: {
         type: DataTypes.NUMBER,
         allowNull: true
     },
     pro_descripcion: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    pro_nombre: {
         type: DataTypes.TEXT,
         allowNull: true
     },

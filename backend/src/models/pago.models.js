@@ -1,32 +1,25 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../services/bd.service');
 
-const categoriaModel = sequelize.define("categoria", {
-    cat_id: {
+const pagosModel = sequelize.define("pagos", {
+    fp_Id: {
         primaryKey: true,
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    cat_nombre: {
-        type: DataTypes.TEXT,
-        allowNull: true
-    },
-    image: {
-        type: DataTypes.TEXT,
-        allowNull: true
-    },
-    cat_descripcion: {
+
+    fp_descripcion: {
         type: DataTypes.TEXT,
         allowNull: true
     },
 
 }, {
-    tableName: 'categoria',
-    modelName: 'categoria',
+    tableName: 'formaDePago',
+    modelName: 'formaDePago',
     createdAt: false,
     updatedAt: false,
     deletedAt: false
 });
 
-module.exports = { categoriaModel }
+module.exports = { pagosModel }
