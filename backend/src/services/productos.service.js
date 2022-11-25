@@ -17,7 +17,7 @@ const getFilter = async (q, l = 100, p = 0) => {
         ;`;
   let result = await sequelize.query(sql, {
     replacements: {
-      q: q ? "%" + q.toUpperCase() + "%" : "%",
+      q: `%${q.toUpperCase()}%`,
       l: l,
       p: p,
     },

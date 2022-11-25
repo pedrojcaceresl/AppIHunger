@@ -34,8 +34,8 @@ const getByCategoria = async (req, res) => {
 const getFilterByCategoria = async (req, res) => {
   try {
     let q = req.params.q;
-    let idCat = req.params.id;
-    let result = await service.getFilterByCategoria(q, idCat);
+    let idCategoria = req.params.id;
+    let result = await service.getFilterByCategoria(idCategoria);
 
     res.status(200).send({
       success: true,
@@ -52,6 +52,21 @@ const getFilterByCategoria = async (req, res) => {
 const getAll = async (req, res) => {
   try {
     let result = await service.getAll();
+    res.status(200).send({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      result: error.message,
+    });
+  }
+};
+
+const getTop5 = async (req, res) => {
+  try {
+    let result = await service.getTop5();
     res.status(200).send({
       success: true,
       result,
@@ -82,11 +97,8 @@ const getById = async (req, res) => {
 const update = async (req, res) => {
   try {
     let producto = req.body;
-    let id = req.params.id;
-    console.log("CONTROLLLERRRR ", producto, req.params.id);
-    let result = await service.update(producto, id);
+    let result = await service.update(producto);
 
-    console.log(result);
     res.status(200).send({
       success: true,
       result,
@@ -137,6 +149,7 @@ module.exports = {
   remove,
   update,
   getAll,
+  getTop5,
   getByCategoria,
   getFilterByCategoria,
 };
