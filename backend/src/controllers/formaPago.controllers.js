@@ -1,4 +1,4 @@
-const service = require("../services/categoria.service");
+const service = require("../services/pago.service");
 
 const getFilter = async (req, res) => {
   try {
@@ -34,7 +34,7 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
   try {
-    let id = req.params.Id;
+    let id = req.params.id;
     let result = await service.getById(id);
     res.status(200).send({
       success: true,
@@ -49,12 +49,10 @@ const getById = async (req, res) => {
 };
 const update = async (req, res) => {
   try {
+    console.log("aaaaaaaaaa");
     let categoria = req.body;
-    let id = req.body.cat_id;
-    console.log(categoria);
-    let result = await service.update(categoria, id);
+    let result = await service.update(categoria);
 
-    console.log(result);
     res.status(200).send({
       success: true,
       result,
@@ -68,7 +66,8 @@ const update = async (req, res) => {
 };
 const remove = async (req, res) => {
   try {
-    let id = req.params.Id;
+    let id = req.params.id;
+    console.log(req.params);
     let result = await service.remove(id);
     res.status(200).send({
       success: true,

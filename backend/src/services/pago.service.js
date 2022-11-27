@@ -1,17 +1,17 @@
-const { categoriaModel } = require("../models/categoria.models");
+const { pagosModel } = require("../models/pago.models");
 
 const create = async (rol) => {
-  return await categoriaModel.create(rol);
+  return await pagosModel.create(rol);
 };
 
 const getFilter = async (q, l = 10, p = 1) => {
   let result = await sequelize.query(
     `SELECT * FROM 
-       categoria
+       fpegoria
         WHERE 
-        UPPER(cat_nombre) 
+        UPPER(fp_nombre) 
         LIKE :q
-        ORDER BY cat_id
+        ORDER BY fp_Id
         ;
         `,
     {
@@ -29,7 +29,7 @@ const getFilter = async (q, l = 10, p = 1) => {
 const getAll = async () => {
   let result = await sequelize.query(
     `SELECT * FROM 
-        categoria;
+        "formaDePago";
         `,
     {
       replacements: {},
@@ -40,27 +40,27 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  let result = await categoriaModel.findByPk(id);
+  let result = await pagosModel.findByPk(id);
   return result;
 };
 
 const update = async (rol) => {
-  console.log("ROOOOOOL", rol);
-  const count = await categoriaModel.update(rol, {
+  console.log(rol);
+  const count = await pagosModel.update(rol, {
     where: {
-      cat_id: rol.cat_id,
+      fp_Id: rol.fp_Id,
     },
   });
   if (count > 0) {
-    const rolResult = await categoriaModel.findByPk(rol.cat_id);
-    return rolResult.dataValues;
+    const rolResult = await pagosModel.findByPk(rol.fp_Id);
+    return rolResult;
   }
   return null;
 };
-const remove = async (cat_id) => {
-  const count = await categoriaModel.destroy({
+const remove = async (fp_Id) => {
+  const count = await pagosModel.destroy({
     where: {
-      cat_id: cat_id,
+      fp_Id: fp_Id,
     },
   });
   return count > 0;
