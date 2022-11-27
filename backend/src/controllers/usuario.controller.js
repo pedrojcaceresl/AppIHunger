@@ -2,7 +2,7 @@ const usuariosService = require("../services/usuario.service");
 
 const list = async (req, res) => {
   try {
-    const usuarios = await usuariosService.list(req.query.q);
+    const usuarios = await usuariosService.list();
     res.status(200).send({
       result: usuarios,
     });
@@ -16,20 +16,28 @@ const list = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    req.headers;
+    console.log(req.headers["x-token"]);
     let result = await usuariosService.logout(req.headers["x-token"]);
     res.status(200).send({
+      success: true,
       result,
     });
-  } catch (error) {}
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      result: error.message,
+    });
+  }
 };
 
 const login = async (req, res) => {
+  console.log("login dataaa ", req.headers["x-token"]);
   try {
-    const usuario = await usuariosService.login(req.headers["x-token"]);
+    const result = await usuariosService.login(req.body, req.headers);
 
     res.status(200).send({
-      result,
+      success: true,
+      result: result,
     });
   } catch (error) {
     res.status(400).send({
@@ -41,7 +49,7 @@ const login = async (req, res) => {
 
 const listFilter = async (req, res) => {
   try {
-    const usuario = await usuariosService.listFilter(req.params.q);
+    const usuario = await usuariosService.listFilter(req.query.q);
     res.status(200).send({
       success: true,
       result: usuario,
@@ -56,7 +64,7 @@ const listFilter = async (req, res) => {
 
 const getById = async (req, res) => {
   try {
-    const usuario = await usuariosService.getById(req.params.id);
+    const usuario = await usuariosService.getUserById(req.params.id);
     res.status(201).send({
       success: true,
       result: usuario,
@@ -91,7 +99,7 @@ const signUpAdmin = async (req, res) => {
     const result = await usuariosService.signUpAdmin(req.body);
     res.status(202).send({
       success: true,
-      result,
+      // result,
     });
   } catch (error) {
     res.status(400).send({
@@ -104,12 +112,12 @@ const signUpAdmin = async (req, res) => {
 const signUpUser = async (req, res) => {
   try {
     const result = await usuariosService.signUpUser(req.body);
-    req.status(202).send({
+    res.status(202).send({
       success: true,
-      result,
+      // result,
     });
   } catch (error) {
-    req.status(400).send({
+    res.status(400).send({
       success: false,
       result: error.message,
     });
@@ -133,7 +141,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const usuario = await usuariosService.updateUsuarioById(
+    const usuario = await usuariosService.updateUserById(
       req.params.id,
       req.body
     );
@@ -151,7 +159,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   try {
-    const booleanValue = await usuariosService.removeUsuario(req.params.id);
+    const booleanValue = await usuariosService.removeUser(req.params.id);
     res.status(202).send({
       success: booleanValue,
     });
