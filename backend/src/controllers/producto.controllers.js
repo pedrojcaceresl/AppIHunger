@@ -81,7 +81,7 @@ const getTop5 = async (req, res) => {
 
 const getById = async (req, res) => {
   try {
-    let id = req.params.Id;
+    let id = req.params.id;
     let result = await service.getById(id);
     res.status(200).send({
       success: true,
@@ -112,7 +112,7 @@ const update = async (req, res) => {
 };
 const remove = async (req, res) => {
   try {
-    let id = req.params.Id;
+    let id = req.params.id;
     let result = await service.remove(id);
     res.status(200).send({
       success: true,
