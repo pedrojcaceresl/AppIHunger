@@ -5,21 +5,21 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const { Server } = require("socket.io");
 const PORT = process.env.PORT;
-
-const { imageModel: imageModel } = require("./src/models/image.model");
 const io = new Server();
+
+const swaggerDocs = require("./src/helpers/swagger.js");
 
 // Defining Expresss app
 const app = express();
 
 // Using bodyParser to parse JSON bodies into JS objects
-app.use(bodyParser.json({ limit: "500mb" }));
-app.use(
-  bodyParser.urlencoded({
-    limit: "50mb",
-    extended: false,
-  })
-);
+app.use(bodyParser.json());
+// app.use(
+//   bodyParser.urlencoded({
+//     limit: "50mb",
+//     extended: false,
+//   })
+// );
 
 // Enable CORS for all requests
 app.use(
@@ -35,6 +35,7 @@ require("./src/routes/categorias.routes")(app);
 require("./src/routes/producto.routes")(app);
 require("./src/routes/comprobante.routes")(app);
 require("./src/routes/pedidos.routes")(app);
+require("./src/routes/formaPagos.routes")(app);
 
 // Socket server event
 io.on("connection", (socket) => {
@@ -43,5 +44,8 @@ io.on("connection", (socket) => {
 
 // Starting the server
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  console.log(`Listening on port ${PORT}}`);
+  swaggerDocs(app, PORT);
 });
+
+module.exports = app;
