@@ -13,6 +13,29 @@ const {
 } = require("../controllers/usuario.controller");
 
 module.exports = (app) => {
+  /**
+   * @openapi
+   * /healthcheck:
+   *  get:
+   *     tags:
+   *     - Healthcheck
+   *     description: Returns API operational status
+   *     responses:
+   *       200:
+   *         description: API is up and running
+   */
+  app.get("/healthcheck", (req, res) => res.status(200).send());
+  /**
+   * @openapi
+   * /usuarios:
+   *  get:
+   *     tags:
+   *     - List All Users
+   *     description: Returns a list with al the users
+   *     responses:
+   *       200:
+   *         description: Returns a list with al the users
+   */
   app.get("/usuarios", list);
   app.post("/usuario/create", create);
   app.put("/usuario/update/:id", update);
