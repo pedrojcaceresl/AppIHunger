@@ -1,6 +1,18 @@
 const controller = require("../controllers/producto.controllers");
 
 module.exports = (app) => {
+  /**
+   * @openapi
+   * /healthcheck:
+   *  get:
+   *     tags:
+   *     - Healthcheck
+   *     description: Returns API operational status
+   *     responses:
+   *       200:
+   *         description: API is up and running
+   */
+  app.get("/healthcheck", (req, res) => res.status(200).send());
   app.get("/productos", controller.getAll);
   app.get("/producto/getTop5", controller.getTop5);
   app.get(
