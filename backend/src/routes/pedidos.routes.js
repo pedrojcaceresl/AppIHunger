@@ -1,11 +1,11 @@
-const PedidosController = require("../controllers/pedidos.controllers");
+const pedidosController = require("../controllers/pedidos.controllers");
 
 module.exports = (app) => {
-  app.post("/pedidos/post", PedidosController.add);
-  app.post("/pedidos/post2", PedidosController.create);
-  app.get("/pedidos/get", PedidosController.getPedidoPendiente);
-  app.get("/pedidos/getAll", PedidosController.getAll);
-  app.get("/pedidos/get/filter/:q", PedidosController.getPedidoFilter);
-  app.get("/pedidos/get/all/user/:id", PedidosController.getPedidoUsuario);
-  app.put("/pedidos/put/:id", PedidosController.updateEstadoDetalle);
+  app.get("/pedidos/getAll", pedidosController.getAll);
+  app.get("/pedidos/get", pedidosController.getPedidoPendiente);
+  app.post("/pedidos/post", pedidosController.add);
+  app.post("/pedidos/post2", pedidosController.create);
+  app.get("/pedidos/get/filter/:q", pedidosController.getPedidoFilter);
+  app.get("/pedidos/get/all/user/:id", pedidosController.getPedidoUsuario);
+  app.put("/pedidos/put/:id", pedidosController.updateEstadoDetalle);
 };
