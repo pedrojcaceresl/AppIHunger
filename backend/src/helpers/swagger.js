@@ -2,7 +2,7 @@ const { Express, request, response } = require("express");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const { version } = require("./../../package.json");
-
+const logger = require("./../helpers/logger");
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -37,6 +37,7 @@ function swaggerDocs(app, port) {
     // res.setHeader("Content-Type", "application/json");
     res.send(swaggerSpec);
   });
-  console.log(`Docs available at http://localhost:${port}/api-docs`);
+  // console.log(`Docs available at http://localhost:${port}/api-docs`);
+  logger.info(`Docs available at http://localhost:${port}/api-docs`);
 }
 module.exports = swaggerDocs;
