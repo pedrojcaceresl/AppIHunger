@@ -1,4 +1,5 @@
 const { categoriaModel } = require("../models/categoria.models");
+const { sequelize } = require("./../services/bd.service");
 
 const create = async (rol) => {
   return await categoriaModel.create(rol);
