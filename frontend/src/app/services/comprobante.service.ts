@@ -18,7 +18,7 @@ export class ComprobanteService {
   ) {}
 
   public get(): Observable<any> {
-    return this.http.get(`${this.endPoint}/comprobante/get`, {
+    return this.http.get(`${this.endPoint}/comprobante/list`, {
       headers: this.headers,
     });
   }
