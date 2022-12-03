@@ -15,7 +15,7 @@ export class ProductoService {
   constructor(public http: HttpClient) {}
 
   public get(): Observable<any> {
-    return this.http.get(`${this.endPoint}/producto/get`);
+    return this.http.get(`${this.endPoint}/productos`);
   }
 
   public filtrarProducto(text: String): Observable<any> {
@@ -37,7 +37,7 @@ export class ProductoService {
     );
   }
 
-  /*   public eliminarProducto(id: Observable<Producto[]>) {
-    return this.http.delete<Producto[]>(`${this.endPoint}/productos/delete/` + id);
-  } */
+  public delete(id): Observable<any> {
+    return this.http.delete(`${this.endPoint}/producto/delete/${id}`);
+  }
 }

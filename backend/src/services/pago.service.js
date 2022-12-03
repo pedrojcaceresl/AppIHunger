@@ -1,4 +1,5 @@
 const { pagosModel } = require("../models/pago.models");
+const { sequelize } = require("./bd.service");
 
 const create = async (rol) => {
   return await pagosModel.create(rol);
@@ -30,10 +31,7 @@ const getAll = async () => {
   let result = await sequelize.query(
     `SELECT * FROM 
         "formaDePago";
-        `,
-    {
-      replacements: {},
-    }
+        `
   );
   result = result && result[0] ? result[0] : [];
   return result;
