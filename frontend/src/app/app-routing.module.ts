@@ -104,6 +104,10 @@ const routes: Routes = [
     path: 'carrito',
     loadChildren: () => import('./carrito/carrito.module').then( m => m.CarritoPageModule)
   },
+  {
+    path: 'mi-cuenta',
+    loadChildren: () => import('./mi-cuenta/mi-cuenta.module').then( m => m.MiCuentaPageModule)
+  },
 
 ];
 

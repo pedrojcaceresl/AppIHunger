@@ -19,6 +19,7 @@ export class HomePage implements OnInit {
   productosResult;
   cart = [];
   products = [];
+  hasChange = false;
 
   constructor(
     menu: MenuController,
@@ -76,6 +77,25 @@ export class HomePage implements OnInit {
     this.cart.splice(this.cart.indexOf(producto), 1);
     this.localStorage.setItem("cart", this.cart);
     console.log(this.cart);
+  }
+
+  public onChange($event) {
+    console.log($event.detail.value);
+    if (
+      $event.detail &&
+      $event.detail.value &&
+      $event.detail.value.length > 0
+    ) {
+      this.productoService
+        .filtrarProducto($event.detail.value)
+        .subscribe((data) => {
+          this.productosResult = data.result;
+          this.hasChange = true;
+        });
+    } else {
+      this.hasChange = false;
+      this.getProductos();
+    }
   }
 
   // async openCartModal(ev: any) {

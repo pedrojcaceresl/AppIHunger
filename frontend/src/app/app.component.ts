@@ -18,7 +18,7 @@ export class AppComponent {
   public appPages = [
     { title: "Inicio", url: "/home", icon: "home" },
     { title: "Pedidos", url: "/folder/Pedidos", icon: "newspaper" },
-    { title: "Mi cuenta", url: "/folder/Mi cuenta", icon: "person" },
+    { title: "Mi cuenta", url: "/mi-cuenta", icon: "person" },
     {
       title: "Información legal",
       url: "/folder/Información Legal",
