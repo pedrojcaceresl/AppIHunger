@@ -1,7 +1,7 @@
 import { Producto } from "./../interfaces/Producto";
 import { ProductoService } from "./../services/producto.service";
 import { LocalStorageService } from "./../services/localStorage.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ActionSheetController } from "@ionic/angular";
 import { Component, OnInit } from "@angular/core";
 
@@ -14,25 +14,39 @@ export class MenuListadoPage implements OnInit {
   constructor(
     private actionSheetCtrl: ActionSheetController,
     private router: Router,
-    private productoService: ProductoService
+    private productoService: ProductoService,
+    private activatedRoute: ActivatedRoute
   ) {}
   switch = false;
   totalValues;
   productos = new Array<Producto>();
   currentId;
+  categoriaId;
 
   ngOnInit() {
     this.getProductos();
-  }
-
-  getProductos() {
-    this.productoService.get().subscribe((data) => {
-      this.productos = data.result;
-      console.log(this.productos);
+    this.activatedRoute.params.subscribe((data) => {
+      this.categoriaId = data.categoriaId;
+      this.filterCategoriasById();
     });
   }
 
-  getCategorias() {}
+  getProductos() {
+    if (!this.categoriaId) {
+      this.productoService.get().subscribe((data) => {
+        this.productos = data.result;
+        console.log(this.productos);
+      });
+    }
+  }
+
+  filterCategoriasById() {
+    this.productoService.get().subscribe((data) => {
+      this.productos = data.result.filter(
+        (producto) => producto.cat_id == this.categoriaId
+      );
+    });
+  }
 
   onClick() {
     return (this.switch = true);

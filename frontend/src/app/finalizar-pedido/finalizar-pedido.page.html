@@ -46,6 +46,36 @@
 <ion-content fullscreen="true">
   <h1 class="title">Resumen Pedido</h1>
 
+  <ion-card-content>
+    <ion-card-subtitle>Forma de pago</ion-card-subtitle>
+    <ion-item>
+      <ion-label>Comprobante</ion-label>
+      <ion-select [(ngModel)]="binding" (ionChange)="onChange($event)">
+        <ion-select-option
+          *ngFor="let item of comprobantes"
+          [value]="item.com_id"
+        >
+          {{item.com_nombre}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Pago en</ion-label>
+      <ion-select
+        [(ngModel)]="paymentBinding"
+        (ionChange)="onChangePago($event)"
+      >
+        <ion-select-option
+          *ngFor="let item of paymentMethod"
+          [value]="item.fp_Id"
+        >
+          {{item.fp_descripcion}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-card-content>
+
   <div class="cart-items">
     <ion-card mode="ios" *ngFor="let item of products">
       <ion-card-content>
@@ -66,26 +96,6 @@
         </div>
       </ion-card-content>
     </ion-card>
-
-    <!-- <ion-card mode="ios">
-      <ion-card-content>
-        <div class="item-img">
-          <img src="../../assets/cart/cart2.png" />
-        </div>
-
-        <div class="item-info">
-          <p>Female t-shirt</p>
-          <p>Bata</p>
-          <p>$44.00</p>
-
-          <div class="qty-selector">
-            <ion-button fill="clear">-</ion-button>
-            <ion-label>1</ion-label>
-            <ion-button fill="clear">+</ion-button>
-          </div>
-        </div>
-      </ion-card-content>
-    </ion-card> -->
   </div>
 
   <div class="address">
@@ -128,6 +138,7 @@
     routerLink="/success"
     routerDirection="forward"
     shape="round"
+    (click)="sendOrder()"
   >
     Finalizar Compra
   </ion-button>

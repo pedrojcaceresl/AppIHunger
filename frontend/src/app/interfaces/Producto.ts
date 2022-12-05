@@ -6,5 +6,4 @@ export class Producto {
   pro_iva: number;
   pro_precio: number;
   pro_imagen: string;
-  pro_empresaId: number;
 }

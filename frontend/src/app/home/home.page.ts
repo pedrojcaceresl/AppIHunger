@@ -59,27 +59,17 @@ export class HomePage implements OnInit {
     });
   }
 
-  //write a function to add item to cart local storage and update the cart
-  public addToCart(producto) {
-    if (localStorage.getItem("cart")) {
-      this.products = JSON.parse(localStorage.getItem("cart"));
-    }
-    this.cart.push({
-      productId: producto.pro_id + 1,
-      descripcion: producto.pro_descripcion,
-      precio: producto.pro_precio,
-    });
-    this.localStorage.setItem("cart", this.cart);
-    console.log(this.cart);
-  }
-
-  public removeFromCart(producto) {
+  removeFromCart(producto) {
     this.cart.splice(this.cart.indexOf(producto), 1);
     this.localStorage.setItem("cart", this.cart);
     console.log(this.cart);
   }
 
-  public onChange($event) {
+  goToCategoria(event) {
+    this.navCtrl.navigateForward(`/menu-listado/${event.cat_id}`);
+  }
+
+  onChange($event) {
     console.log($event.detail.value);
     if (
       $event.detail &&
@@ -97,16 +87,6 @@ export class HomePage implements OnInit {
       this.getProductos();
     }
   }
-
-  // async openCartModal(ev: any) {
-  //   const popover = await this.popoverController.create({
-  //     component: CartPopoverComponent,
-  //     event: ev,
-  //     translucent: false,
-  //   });
-
-  //   await popover.present();
-  // }
 
   goToCart() {
     this.navCtrl.navigateForward("/carrito");

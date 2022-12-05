@@ -68,6 +68,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: "menu-listado/:categoriaId",
+    loadChildren: () =>
+      import("./menu-listado/menu-listado.module").then(
+        (m) => m.MenuListadoPageModule
+      ),
+  },
+  {
     path: "detalle-producto/:id",
     loadChildren: () =>
       import("./detalle-producto/detalle-producto.module").then(
@@ -100,15 +107,17 @@ const routes: Routes = [
       import(
         "./admin/categorias/editar-categoria/editar-categoria.module"
       ).then((m) => m.EditarCategoriaPageModule),
-  },  {
-    path: 'carrito',
-    loadChildren: () => import('./carrito/carrito.module').then( m => m.CarritoPageModule)
   },
   {
-    path: 'mi-cuenta',
-    loadChildren: () => import('./mi-cuenta/mi-cuenta.module').then( m => m.MiCuentaPageModule)
+    path: "carrito",
+    loadChildren: () =>
+      import("./carrito/carrito.module").then((m) => m.CarritoPageModule),
   },
-
+  {
+    path: "mi-cuenta",
+    loadChildren: () =>
+      import("./mi-cuenta/mi-cuenta.module").then((m) => m.MiCuentaPageModule),
+  },
 ];
 
 @NgModule({
