@@ -90,6 +90,11 @@ export class FinalizarPedidoPage implements OnInit {
     }
   }
 
+  onChange($event) {
+    console.log($event);
+  }
+  onChangePago($event) {}
+
   errorHandler = () => {
     this.presentAlert(
       "Error",
