@@ -4,37 +4,34 @@
       <!-- <ion-back-button text="Back" icon="add"></ion-back-button> -->
       <ion-back-button text="Atrás" defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Panel de Administracion</ion-title>
+    <ion-title>Panel de Administración</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-   
-  <ion-item button  [routerLink]="['/admin/usuarios']">
+  <ion-item button [routerLink]="['/admin/usuarios']">
     <ion-thumbnail slot="start">
-      <img src="https://cdn-icons.flaticon.com/png/512/2936/premium/2936766.png?token=exp=1653641661~hmac=df18502b168bc6d611ca09f5359c3e8e">
+      <img src="../../assets/icon/man.png" />
     </ion-thumbnail>
     <ion-label>
       <h2>Usuarios</h2>
       <p>Gestionar Usuarios</p>
     </ion-label>
-   
   </ion-item>
 
-  <ion-item button  [routerLink]="['/admin/productos']">
+  <ion-item button [routerLink]="['/admin/productos']">
     <ion-thumbnail slot="start">
-      <img src="https://cdn-icons-png.flaticon.com/512/1524/1524855.png">
+      <img src="../../assets/icon/products.png" />
     </ion-thumbnail>
     <ion-label>
       <h2>Productos</h2>
       <p>Gestionar Productos</p>
     </ion-label>
-
   </ion-item>
 
   <ion-item button [routerLink]="['/admin/categorias']">
     <ion-thumbnail slot="start">
-      <img src="https://cdn-icons-png.flaticon.com/512/7183/7183999.png">
+      <img src="../../assets/icon/categories.png" />
     </ion-thumbnail>
     <ion-label>
       <h2>Categorías</h2>
@@ -42,4 +39,23 @@
     </ion-label>
   </ion-item>
 
+  <ion-item button [routerLink]="['/admin/pedidos']">
+    <ion-thumbnail slot="start">
+      <img src="../../assets/icon/order.png" />
+    </ion-thumbnail>
+    <ion-label>
+      <h2>Pedidos Pendientes</h2>
+      <p>Gestionar Pedidos Pendientes</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-item button [routerLink]="['/admin/pagos-list']">
+    <ion-thumbnail slot="start">
+      <img src="../../assets/icon/pago-en-linea.png" />
+    </ion-thumbnail>
+    <ion-label>
+      <h2>Formas de Pago</h2>
+      <p>Gestionar Formas de Pago</p>
+    </ion-label>
+  </ion-item>
 </ion-content>
