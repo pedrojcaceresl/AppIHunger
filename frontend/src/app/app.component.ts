@@ -20,8 +20,8 @@ export class AppComponent {
     { title: "Pedidos", url: "/pedidos", icon: "newspaper" },
     { title: "Mi cuenta", url: "/mi-cuenta", icon: "person" },
     {
-      title: "Información legal",
-      url: "/folder/Información Legal",
+      title: "Información Legal",
+      url: "/informacion-legal",
       icon: "information-circle",
     },
     { title: "Ayuda en línea", url: "/folder/Ayuda en Línea", icon: "headset" },
