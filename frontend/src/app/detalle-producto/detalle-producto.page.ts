@@ -42,6 +42,7 @@ export class DetalleProductoPage implements OnInit {
   getProductById() {
     this.productService.getProductoById(this.currentId).subscribe((res) => {
       this.producto = res.result;
+      console.log("EL PRODUCTO EN DETALLE PRODUCTOOOOO: ", this.producto);
       this.setPrice(this.producto.pro_precio);
       this.pedidoService.getDetalleByProductoId(this.currentId);
     });
@@ -78,7 +79,7 @@ export class DetalleProductoPage implements OnInit {
     detail.obs = this.obs ? this.obs.trim() : "";
     detail.descripcion = this.producto.pro_descripcion;
     detail.producto = this.producto.pro_nombre;
-    detail.image = this.producto.pro_imagen;
+    detail.image = this.producto.image;
 
     this.pedidoService.validarExistencia(detail);
     this.navigation.pop();

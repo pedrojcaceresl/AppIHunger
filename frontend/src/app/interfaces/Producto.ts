@@ -5,5 +5,5 @@ export class Producto {
   pro_descripcion: string;
   pro_iva: number;
   pro_precio: number;
-  pro_imagen: string;
+  image: string;
 }
