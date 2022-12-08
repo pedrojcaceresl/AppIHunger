@@ -27,7 +27,7 @@ export class MenuListadoPage implements OnInit {
     this.getProductos();
     this.activatedRoute.params.subscribe((data) => {
       this.categoriaId = data.categoriaId;
-      this.filterCategoriasById();
+      if (this.categoriaId) this.filterCategoriasById();
     });
   }
 

@@ -37,6 +37,7 @@ export class CarritoPage implements OnInit {
 
   getProductos() {
     this.productos = this.pedidoService.getDetalles() || [];
+    console.log(JSON.stringify(this.productos) + "DEL CARRITOOO");
   }
 
   goForward() {
