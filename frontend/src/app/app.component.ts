@@ -17,7 +17,7 @@ registerLocaleData(localeFr, "es");
 export class AppComponent {
   public appPages = [
     { title: "Inicio", url: "/home", icon: "home" },
-    { title: "Pedidos", url: "/folder/Pedidos", icon: "newspaper" },
+    { title: "Pedidos", url: "/pedidos", icon: "newspaper" },
     { title: "Mi cuenta", url: "/mi-cuenta", icon: "person" },
     {
       title: "Información legal",
@@ -26,24 +26,13 @@ export class AppComponent {
     },
     { title: "Ayuda en línea", url: "/folder/Ayuda en Línea", icon: "headset" },
     { title: "Admin", url: "/admin", icon: "people" },
-
-    /*  { title: 'Spam', url: '/folder/Spam', icon: 'warning' }, */
   ];
-  //public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+
   constructor(
     private authService: AuthenticationService,
     private router: Router,
     private menu: MenuController
-  ) {
-    /*  this.initializeApp(); */
-  }
-
-  /*  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
-  } */
+  ) {}
 
   async logout() {
     console.log("LOGOUTT");
