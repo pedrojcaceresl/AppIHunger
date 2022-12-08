@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" defaultHref="/admin"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Formas de Pago</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list *ngFor="let formaDePago of formasDePago; let index = i">
+    <ion-item-sliding #slidingItem>
+      <ion-item
+        button
+        class="item-label item ios in-list ion-focusable hydrated"
+        [routerLink]="['/admin/pagos-edit/'  + formaDePago.fp_Id]"
+      >
+        <ion-avatar slot="start">
+          <img src="../../../../assets/icon/pago-en-linea.png" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{formaDePago.fp_descripcion}}</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="onClick(formaDePago)" color="danger">
+          <ion-icon name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab
+    [routerLink]="['/admin/pagos-create']"
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+  >
+    <ion-fab-button class="btnCrear">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
