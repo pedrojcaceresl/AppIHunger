@@ -117,7 +117,11 @@ const routes: Routes = [
     path: "mi-cuenta",
     loadChildren: () =>
       import("./mi-cuenta/mi-cuenta.module").then((m) => m.MiCuentaPageModule),
+  },  {
+    path: 'informacion-legal',
+    loadChildren: () => import('./informacion-legal/informacion-legal.module').then( m => m.InformacionLegalPageModule)
   },
+
 ];
 
 @NgModule({

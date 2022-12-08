@@ -30,6 +30,7 @@ export class FinalizarPedidoPage implements OnInit {
   cantidadGeneral = 0;
   gps;
   error = false;
+  selectComprobante;
 
   ngOnInit() {
     this.getCartItems();
@@ -37,6 +38,7 @@ export class FinalizarPedidoPage implements OnInit {
     this.getComprobantes();
     this.getPaymentsMethods();
     this.askLocation();
+    this.selectComprobante = true;
   }
 
   getProductsList() {
@@ -92,6 +94,7 @@ export class FinalizarPedidoPage implements OnInit {
 
   onChange($event) {
     console.log($event);
+    this.selectComprobante = false;
   }
   onChangePago($event) {}
 

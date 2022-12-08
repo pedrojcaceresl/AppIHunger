@@ -24,40 +24,41 @@ export class PedidoService {
   headers = { "x-token": localStorage.getItem(environment.tokenKey) };
 
   public add(data): Observable<any> {
+    console.log("DATA PEDIDOSSS ", data);
     return this.http.post(`${this.endPoint}/pedidos/post`, data, {
-      headers: this.headers,
+      // headers: this.headers,
     });
   }
 
   public get(): Observable<any> {
     return this.http.get(`${this.endPoint}/pedidos/get`, {
-      headers: this.headers,
+      // headers: this.headers,
     });
   }
 
   public getAll(): Observable<any> {
     return this.http.get(`${this.endPoint}/pedidos/getAll`, {
-      headers: this.headers,
+      // headers: this.headers,
     });
   }
 
   public getAllByUser(): Observable<any> {
     let usuario = JSON.parse(localStorage.getItem("datosUsuario"));
     return this.http.get(
-      `${this.endPoint}/pedidos/get/all/usuer/${usuario.usu_id}`,
-      { headers: this.headers }
+      `${this.endPoint}/pedidos/get/all/user/${usuario.usu_id}`
+      // { headers: this.headers }
     );
   }
 
   public getFilter(text): Observable<any> {
     return this.http.get(`${this.endPoint}/pedidos/get/filter/${text}`, {
-      headers: this.headers,
+      // headers: this.headers,
     });
   }
 
   public update(id): Observable<any> {
     return this.http.put(`${this.endPoint}/pedidos/put/${id}`, {
-      headers: this.headers,
+      // headers: this.headers,
     });
   }
 

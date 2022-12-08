@@ -1,9 +1,60 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>pedidos</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Mis Pedidos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list *ngFor="let item of detalles">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="{{item.image}}" />
+      </ion-avatar>
 
+      <ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              <!-- icon -->
+              <ion-card-subtitle
+                >Fecha: {{item.ped_fecha | date:
+                'dd/MM/yyyy'}}</ion-card-subtitle
+              >
+            </ion-col>
+            <ion-col size="12">
+              <!-- name -->
+              {{item.pro_nombre}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" style="white-space: normal">
+              <!-- icon -->
+              <h6>Cantidad: {{item.det_cantidad}}</h6>
+            </ion-col>
+            <ion-col size="12" style="white-space: normal">
+              <h6>Total: {{item.ped_total_general | number:'':'es'}} G$</h6>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="2">
+              <!-- icon -->
+              <h3
+                style="color: rgb(31, 113, 207); font-weight: bold"
+                color="primary"
+              >
+                Estado: {{item.det_estado===2?'Pendiente':"Hecho"}}
+              </h3>
+            </ion-col>
+            <ion-col size="10">
+              <!-- time -->
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

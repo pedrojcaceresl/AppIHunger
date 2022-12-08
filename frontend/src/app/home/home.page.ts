@@ -16,10 +16,11 @@ import { Component, OnInit } from "@angular/core";
 })
 export class HomePage implements OnInit {
   categoriasResult;
-  productosResult;
+  productosResult = [];
   cart = [];
   products = [];
   hasChange = false;
+  topBebidas = [];
 
   constructor(
     menu: MenuController,
@@ -48,14 +49,25 @@ export class HomePage implements OnInit {
   getCategorias() {
     this.categoriaService.get().subscribe((data) => {
       this.categoriasResult = data.result;
-      console.log(this.categoriasResult);
+      // console.log(this.categoriasResult);
     });
   }
 
   getProductos() {
     this.productoService.get().subscribe((data) => {
       this.productosResult = data.result.slice(0, 5);
-      console.log(this.productosResult);
+      this.productosResult = this.productosResult.filter(
+        (data) => data.cat_id != 10
+      );
+    });
+    this.getTopBebidas();
+  }
+
+  getTopBebidas() {
+    this.productoService.get().subscribe((data) => {
+      this.topBebidas = data.result;
+      this.topBebidas = this.topBebidas.filter((data) => data.cat_id === 10);
+      console.log(this.topBebidas);
     });
   }
 
