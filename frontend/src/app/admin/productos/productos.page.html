@@ -24,8 +24,11 @@
         [routerLink]="['/admin/productos/editar-producto/'  + this.producto.pro_id]"
       >
         <ion-avatar slot="start">
-          <img *ngIf="producto.pro_img" src="{{producto.pro_img}}" />
-          <img src="https://cdn-icons-png.flaticon.com/512/1524/1524855.png" />
+          <img *ngIf="producto.image" src="{{producto.image}}" />
+          <img
+            *ngIf="!producto.image"
+            src="https://cdn-icons-png.flaticon.com/512/1524/1524855.png"
+          />
         </ion-avatar>
         <ion-label>
           <h2>{{this.producto.pro_descripcion}}</h2>
