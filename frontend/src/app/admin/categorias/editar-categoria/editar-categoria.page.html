@@ -1,69 +1,60 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="Atrás" defaultHref="/admin/categorias"></ion-back-button>
+      <ion-back-button
+        text="Atrás"
+        defaultHref="/admin/categorias"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title>Editar Categoria</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<!--   <div class="container">
-    <ion-avatar class="outer" >
-      <img [src]="this.resultadoImagen" alt="">
-      <div class="inner" >
-
-        <ion-icon name="camera" class="camera-icon"></ion-icon>
-      </div>
-
-    </ion-avatar>
-
-  </div> -->
-  <form [formGroup]="editarCategoriaForm" (ngSubmit)="updateCategoria()" >
-   
-  <!--   <div class="container">
-      <div class="outer" >
-        <img [src]="this.domSanitizer.bypassSecurityTrustResourceUrl(this.myImage64)" alt="">
-        
-        <div class="inner" (click)="openOptionSelection()">
-
-          <ion-icon name="camera" class="camera-icon"></ion-icon>
-        </div>
-
-      </div>
-
-    </div> -->
-
-    
-    <ion-list>
+  <form [formGroup]="registroCategoriaForm" (ngSubmit)="updateCategoria()">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Categorías</ion-card-subtitle>
+        <ion-card-title>Añade una nueva categoría.</ion-card-title>
+      </ion-card-header>
       <ion-item lines="full">
         <ion-label position="floating">Nombre</ion-label>
         <ion-input
-          ngModel="{{this.nombre}}"
+          [value]="nombre"
           type="text"
-          value="nombre"
           formControlName="cat_nombre"
         ></ion-input>
       </ion-item>
-
-      
       <ion-item lines="full">
         <ion-label position="floating">Descripcion</ion-label>
         <ion-input
-          ngModel="{{this.descripcion}}"
+          [value]="descripcion"
           type="text"
-          value="descripcion"
           formControlName="cat_descripcion"
         ></ion-input>
       </ion-item>
-      
+      <ion-item lines="full">
+        <ion-label position="floating">Imagen</ion-label>
+        <ion-input
+          [value]="image"
+          type="text"
+          formControlName="image"
+        ></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-grid>
       <ion-row>
-        <ion-col>
-          <ion-button expand="block" type="submit"
-            >Guardar!</ion-button
+        <ion-col size="1"></ion-col>
+        <ion-col class="ion-text-center">
+          <ion-button type="submit" color="danger" class="botoncito"
+            >Guardar</ion-button
+          >
+          <ion-button color="" class="botoncito" routerLink="/admin/categorias"
+            >Cancelar</ion-button
           >
         </ion-col>
+        <ion-col size="1"></ion-col>
       </ion-row>
-    </ion-list>
+    </ion-grid>
   </form>
 </ion-content>

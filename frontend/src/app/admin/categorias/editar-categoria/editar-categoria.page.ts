@@ -10,12 +10,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./editar-categoria.page.scss'],
 })
 export class EditarCategoriaPage implements OnInit {
-  editarCategoriaForm: FormGroup;
+  registroCategoriaForm: FormGroup;
   id;
   categoria;
   categoriaResult;
   nombre;
   descripcion;
+  image;
 
   constructor(
     private categoriaService: CategoriaService,
@@ -25,10 +26,11 @@ export class EditarCategoriaPage implements OnInit {
     public modalController: ModalController,
   ) {
     
-    this.editarCategoriaForm = this.formBuilder.group({
+    this.registroCategoriaForm = this.formBuilder.group({
       cat_id: [''],
       cat_nombre: [''],
       cat_descripcion: [''],
+      image: [''],
 
     });
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -36,7 +38,7 @@ export class EditarCategoriaPage implements OnInit {
 
   ngOnInit() {
     this.getCategoria(this.id);
-    this.editarCategoriaForm.patchValue({ cat_id: this.id });
+    this.registroCategoriaForm.patchValue({ cat_id: this.id });
   }
 
   public async getCategoria(id){
@@ -44,14 +46,15 @@ export class EditarCategoriaPage implements OnInit {
       this.categoriaResult = res.result;
       this.nombre = this.categoriaResult.cat_nombre;
       this.descripcion = this.categoriaResult.cat_descripcion;
+      this.image = this.categoriaResult.image;
 
     });
   }
 
   public async updateCategoria(){
-    this.categoriaService.actualizarCategoria(this.editarCategoriaForm.value).subscribe((res) => {
+    this.categoriaService.actualizarCategoria(this.registroCategoriaForm.value).subscribe((res) => {
       if(res.success == true){
-        this.editarCategoriaForm.reset();
+        this.registroCategoriaForm.reset();
         this.router.navigate(['/admin/categorias']);
       }
     });
