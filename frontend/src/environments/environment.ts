@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   url: "http://localhost:3000",
   tokenKey: "x-token",
+  socketUrl: "http://localhost:8100",
 };
 
 /*
