@@ -1,9 +1,80 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>crear-producto</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button
+        text="Atrás"
+        defaultHref="/admin/productos"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nuevo Producto</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-margin ion-padding">
+  <form [formGroup]="productoForm" (ngSubmit)="crearProducto()">
+    <ion-list>
+      <ion-item lines="full">
+        <ion-label position="floating">Nombre Producto</ion-label>
+        <ion-input
+          ngModel="{{this.descripcion}}"
+          type="text"
+          value="this.productoResult.pro_nombre"
+          formControlName="pro_nombre"
+        ></ion-input>
+      </ion-item>
 
+      <ion-item lines="full">
+        <ion-label position="floating">Descripcion</ion-label>
+        <ion-input
+          ngModel="{{this.descripcion}}"
+          type="text"
+          value="this.productoResult.pro_descripcion"
+          formControlName="pro_descripcion"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Imagen URL</ion-label>
+        <ion-input
+          ngModel="{{this.imagen}}"
+          type="text"
+          value="this.productoResult.image"
+          formControlName="image"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Precio Gs</ion-label>
+        <ion-input
+          ngModel="{{this.precio}}"
+          type="number"
+          value="this.productoResult.pro_precio"
+          formControlName="pro_precio"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Categoria</ion-label>
+        <ion-select
+          interface="popover"
+          placeholder="Selecciona Categoria"
+          [multiple]="false"
+          formControlName="cat_id"
+          required="true"
+        >
+          <ion-select-option
+            *ngFor="let item of categoria"
+            [value]="item.cat_id"
+            >{{item.cat_nombre}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" type="submit">Guardar!</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </form>
 </ion-content>
