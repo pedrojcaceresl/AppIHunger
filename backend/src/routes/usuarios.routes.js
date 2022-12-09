@@ -1,16 +1,4 @@
-const {
-  list,
-  listFilter,
-  getById,
-  login,
-  create,
-  signUpAdmin,
-  signUpUser,
-  retrievePassword,
-  update,
-  logout,
-  remove,
-} = require("../controllers/usuario.controller");
+const usuario = require("../controllers/usuario.controller");
 
 module.exports = (app) => {
   /**
@@ -36,16 +24,17 @@ module.exports = (app) => {
    *       200:
    *         description: Returns a list with al the users
    */
-  app.get("/usuarios", list);
-  app.post("/usuario/create", create);
-  app.put("/usuario/update/:id", update);
-  app.delete("/usuario/remove/:id", remove);
-  app.get("/usuario/filter", listFilter);
-  app.get("/usuario/find/:id", getById);
-  app.post("/usuario/registrar/adm", signUpAdmin);
-  app.post("/usuario/registrar", signUpUser);
+  app.get("/usuarios", usuario.list);
+  app.post("/usuario/create", usuario.create);
+  app.put("/usuario/update/:id", usuario.update);
+  app.delete("/usuario/remove/:id", usuario.remove);
+  app.get("/usuario/filter", usuario.listFilter);
+
+  app.get("/usuario/find/:id", usuario.getById);
+  app.post("/usuario/registrar/adm", usuario.signUpAdmin);
+  app.post("/usuario/registrar", usuario.signUpUser);
   //Authentication
-  app.post("/usuario/login", login);
-  app.get("/usuario/recuperar/:email", retrievePassword);
-  app.post("/usuario/logout", logout);
+  app.post("/usuario/login", usuario.login);
+  app.get("/usuario/recuperar/:email", usuario.retrievePassword);
+  app.post("/usuario/logout", usuario.logout);
 };
