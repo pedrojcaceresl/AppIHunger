@@ -65,7 +65,7 @@ export class MiCuentaPage implements OnInit {
   editarUsuario() {
     console.log("codigo id metodo update", this.id);
     this.usuarioService
-      .actualizarUsuario(this.id, this.editarUsuarioForm.value)
+      .update(this.id, this.editarUsuarioForm.value)
       .subscribe((res) => {
         console.log(res);
         this.editarUsuarioForm.reset();
@@ -89,7 +89,7 @@ export class MiCuentaPage implements OnInit {
     return await modal.present();
   }
 
-  //create a method to take a Pciture from camera and gallery
+  // TODO create a method to take a Pciture from camera and gallery
   takePicture(sourceType: number) {
     console.log("object", sourceType);
     //create options for the camera
