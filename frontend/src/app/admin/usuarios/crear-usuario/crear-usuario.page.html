@@ -7,51 +7,55 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  
-    <form [formGroup]="crearUsuarioForm" (ngSubmit)="crearUsuario()" >
-      <ion-list>
-        <ion-item lines="full">
-          <ion-label position="floating">Nombre y Apellido</ion-label>
-          <ion-input
-            type="text"
-            value="usuario.usu_nombre"
-            formControlName="usu_nombre"
-          ></ion-input>
-        </ion-item>
-        <ion-item lines="full">
-          <ion-label position="floating">Email</ion-label>
-          <ion-input
-            type="email"
-            value="usuario.usu_email"
-            formControlName="usu_email"
-          ></ion-input>
-        </ion-item>
-        
-        <ion-item lines="full">
-          <ion-label position="floating">Telefono</ion-label>
-          <ion-input
-            type="text"
-            value="usuario.usu_telefono"
-            formControlName="usu_telefono"
-          ></ion-input>
-        </ion-item>
-        <ion-item lines="full">
-          <ion-label position="floating">Contraseña de acceso</ion-label>
-          <ion-input
-            type="text"
-            value="usuario.usu_password"
-            formControlName="usu_password"
-          ></ion-input>
-        </ion-item>
-        <ion-row>
-          <ion-col>
-            <ion-button expand="block" type="submit"
-              >Crear Usuario</ion-button
-            >
-          </ion-col>
-        </ion-row>
-      </ion-list>
-    </form>
+<ion-content class="ion-margin ion-padding">
+  <form [formGroup]="crearUsuarioForm" (ngSubmit)="crearUsuario()">
+    <ion-list>
+      <ion-item lines="full">
+        <ion-label position="floating">Nombre y Apellido</ion-label>
+        <ion-input
+          type="text"
+          value="usuario.usu_nombre"
+          formControlName="usu_nombre"
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+          type="email"
+          value="usuario.usu_email"
+          formControlName="usu_email"
+        ></ion-input>
+      </ion-item>
 
+      <ion-item lines="full">
+        <ion-label position="floating">Telefono</ion-label>
+        <ion-input
+          type="text"
+          value="usuario.usu_telefono"
+          formControlName="usu_telefono"
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Foto de Perfil URL</ion-label>
+        <ion-input
+          type="text"
+          value="usuario.usu_imagen"
+          formControlName="usu_imagen"
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Contraseña de acceso</ion-label>
+        <ion-input
+          type="text"
+          value="usuario.usu_password"
+          formControlName="usu_password"
+        ></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" type="submit">Crear Usuario</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </form>
 </ion-content>
