@@ -121,8 +121,11 @@ const signUpUser = async (data) => {
 //AUTHORIZATION
 
 const login = async (data) => {
-  let dbUser = await getUserByEmailPass(data.email, data.password);
+  console.log("LOGIN DATAAA ", data);
+  let dbUser;
+  dbUser = await getUserByEmailPass(data.usu_email, data.usu_password);
 
+  console.log("DB USERRR", dbUser);
   if (dbUser && dbUser.usu_id) {
     let payload = { usu: dbUser.usu_id };
     let token = await jwt.generateJWT(payload);
@@ -134,11 +137,11 @@ const login = async (data) => {
 
 const getUserByEmailPass = async (email, pass) => {
   console.log("email and pass", email, pass);
-  let sql = `SELECT * FROM usuarios WHERE usu_password = :pass and UPPER(usu_email) = :email`;
+  let sql = `SELECT * FROM usuarios WHERE usu_password = :pass and usu_email = :email`;
   let usuariosResult = await sequelize.query(sql, {
     replacements: {
       pass: pass,
-      email: email.toUpperCase(),
+      email: email,
     },
   });
   return usuariosResult[0][0];

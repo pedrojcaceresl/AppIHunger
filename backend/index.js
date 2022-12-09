@@ -63,7 +63,7 @@ io.on("connection", (socket) => {
 
 // Starting the server
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}}`);
+  console.log(`Listening on port ${PORT}`);
   swaggerDocs(app, PORT);
 });
 
