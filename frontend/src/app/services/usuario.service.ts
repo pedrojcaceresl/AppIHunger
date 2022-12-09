@@ -1,46 +1,74 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Usuario } from '../interfaces/Usuario';
-
+import { LocalStorageService } from "./localStorage.service";
+import { environment } from "./../../environments/environment";
+import { HttpClient } from "@angular/common/http";
+import { EventEmitter, Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { Usuario } from "../interfaces/Usuario";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class UsuarioService {
-  
-  api = 'http://localhost:3000/usuario';
+  admin = new EventEmitter();
 
-  constructor(public http: HttpClient) { }
+  endPoint = environment.url;
+  headers = {
+    "x-token": this.LocalStorageService.getString(environment.tokenKey),
+  };
+  constructor(
+    public http: HttpClient,
+    private LocalStorageService: LocalStorageService
+  ) {}
 
-  public listarUsuarios(): Observable<any>{
-    const url = `${this.api}/list`;
-    return this.http.get(url);
+  public listarUsuarios(): Observable<any> {
+    return this.http.get(`${this.endPoint}/usuarios`, {
+      headers: this.headers,
+    });
   }
 
-  public filtrarUsuario(texto: String){
-    return this.http.get(this.api+`-filter?q=${texto}`);
+  public recuperar(email): Observable<any> {
+    return this.http.get(`${this.endPoint}/usuario/recuperar/${email}`, {
+      headers: this.headers,
+    });
   }
 
-  getUsuarioById(id: number){
-    
-    return this.http.get(`http://localhost:3000/usuario/find/`+id);
+  public filtrarUsuario(texto: String): Observable<any> {
+    console.log(texto);
+    return this.http.get(`${this.endPoint}/usuario/filter/?q=${texto}`, {
+      headers: this.headers,
+    });
   }
 
-  
-  public crearUsuario(data: Observable<Usuario[]>): Observable<any>{
-    
-    return this.http.post<Usuario[]>(`${this.api}/create`, data);
+  getUsuarioById(id): Observable<any> {
+    return this.http.get(`${this.endPoint}/usuario/find/${id}`, {
+      headers: this.headers,
+    });
   }
 
-  
-  actualizarUsuario(org_codigo, usuario) {
-    return this.http.put('http://localhost:3000/usuario/update/' + org_codigo, usuario);
+  crearUsuario(usuario) {
+    const url = `${this.endPoint}/usuario/create`;
+    return this.http.post(url, usuario);
   }
 
- 
-  eliminarUsuarioService(id: Observable<Usuario[]>) {
-    return this.http.delete<Usuario[]>('http://localhost:3000/usuario/remove/' + id);
+  public update(id, data): Observable<any> {
+    return this.http.put(`${this.endPoint}/usuario/update/${id}`, data, {
+      headers: this.headers,
+    });
   }
 
+  public delete(id): Observable<any> {
+    return this.http.delete(`${this.endPoint}/usuario/remove/${id}`, {
+      headers: this.headers,
+    });
+  }
+  public registrarUsuario(data): Observable<any> {
+    return this.http.post(`${this.endPoint}/usuario/registrar`, data, {
+      headers: this.headers,
+    });
+  }
+  public registrarUsuarioAdmin(data): Observable<any> {
+    return this.http.post(`${this.endPoint}/usuario/registrar/adm`, data, {
+      headers: this.headers,
+    });
+  }
 }

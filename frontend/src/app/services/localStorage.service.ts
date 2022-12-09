@@ -27,7 +27,11 @@ export class LocalStorageService {
     localStorage.setItem(key, JSON.stringify(object));
   }
 
-  public clearItem() {
+  public setS(key: string, object: any) {
+    localStorage.setItem(key, object);
+  }
+
+  public clear() {
     localStorage.clear();
   }
 
