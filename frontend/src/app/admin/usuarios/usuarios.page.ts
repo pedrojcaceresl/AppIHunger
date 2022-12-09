@@ -1,4 +1,5 @@
-import { UsuarioService } from './../../services/usuario.service';
+import { AlertController } from "@ionic/angular";
+import { UsuarioService } from "./../../services/usuario.service";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -8,13 +9,15 @@ import { Component, OnInit } from "@angular/core";
 })
 export class UsuariosPage implements OnInit {
   usuarios;
+  handlerMessage;
+  roleMessage;
   constructor(
-    private usuarioService : UsuarioService
+    private usuarioService: UsuarioService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
     this.listarUsuarios();
-    this.buscarUsuario(event);
   }
 
   ionViewWillEnter() {
@@ -29,23 +32,52 @@ export class UsuariosPage implements OnInit {
 
   buscarUsuario(event) {
     const data = event.detail.value;
-    console.log(data);
     this.usuarioService.filtrarUsuario(data).subscribe((res) => {
       console.log(res);
       if (res) {
-        this.usuarios = res["usuario"];
+        this.usuarios = res.result;
       } else {
         this.usuarios = [];
       }
     });
   }
 
-   eliminarUsuario(usuario, i, slidingItem) {
-      this.usuarioService.eliminarUsuarioService(usuario.usu_codigo)
-        .subscribe(() => {
-          this.usuarios.splice(i, 1);
-          slidingItem.close();
-          this.ionViewWillEnter();
-        });
+  async presentDialog(text) {
+    const alert = await this.alertController.create({
+      header: `${text}`,
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          handler: () => {
+            this.handlerMessage = "Alert canceled";
+          },
+        },
+        {
+          text: "OK",
+          role: "ok",
+          handler: () => {
+            this.handlerMessage = "Alert confirmed";
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+
+    this.roleMessage = role;
+  }
+
+  async eliminarUsuario(usuario) {
+    await this.presentDialog("Seguro que quieres eliminar?");
+    if (this.roleMessage === "ok") {
+      console.log(usuario);
+      this.usuarioService.delete(usuario).subscribe(() => {
+        this.ionViewWillEnter();
+      });
+    } else if (this.roleMessage === "cancel") {
+      this.listarUsuarios();
+    }
   }
 }

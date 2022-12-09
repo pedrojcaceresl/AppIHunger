@@ -7,6 +7,7 @@ const sequelize = new Sequelize("postgres", "postgres", "admin", {
 });
 
 const testConnection = async () => {
+  console.log("TRYING TO CONNECTTTT");
   try {
     await sequelize.authenticate();
     console.log(

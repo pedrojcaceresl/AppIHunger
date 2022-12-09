@@ -40,7 +40,7 @@ export class PagosListPage implements OnInit {
 
   onClick(formaDePago) {
     console.log(formaDePago);
-    this.eliminarUsuario(formaDePago);
+    this.eliminarFormaDePago(formaDePago);
   }
 
   async presentDialog(text) {
@@ -70,7 +70,7 @@ export class PagosListPage implements OnInit {
     this.roleMessage = role;
   }
 
-  async eliminarUsuario(formaDePago) {
+  async eliminarFormaDePago(formaDePago) {
     await this.presentDialog("Seguro que quieres eliminar?");
     if (this.roleMessage === "ok") {
       console.log(formaDePago);

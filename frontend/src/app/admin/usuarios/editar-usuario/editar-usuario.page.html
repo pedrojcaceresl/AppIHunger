@@ -1,20 +1,22 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="Atrás" defaultHref="/admin/usuarios"></ion-back-button>
+      <ion-back-button
+        text="Atrás"
+        defaultHref="/admin/usuarios"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title>Editar Usuario</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding ion-margin">
   <div class="container">
-    <div class="outer"
-      [ngStyle]="{'background-image': 'url(' + photo + ')'}">
-        <div class="inner" (click)="openOptionSelection()">
-           <ion-icon name="camera" class="camera-icon"></ion-icon>
-        </div>
-     </div>
+    <div class="outer" [ngStyle]="{'background-image': 'url(' + photo + ')'}">
+      <div class="inner" (click)="openOptionSelection()">
+        <ion-icon name="camera" class="camera-icon"></ion-icon>
+      </div>
+    </div>
     <!-- <ion-avatar class="outer" >
       <img [src]="this.resultadoImagen" alt="">
       <div class="inner" (click)="openOptionSelection()">
@@ -23,24 +25,8 @@
       </div>
 
     </ion-avatar> -->
-
   </div>
-  <form [formGroup]="editarUsuarioForm" (ngSubmit)="editarUsuario()" >
-   
-  <!--   <div class="container">
-      <div class="outer" >
-        <img [src]="this.domSanitizer.bypassSecurityTrustResourceUrl(this.myImage64)" alt="">
-        
-        <div class="inner" (click)="openOptionSelection()">
-
-          <ion-icon name="camera" class="camera-icon"></ion-icon>
-        </div>
-
-      </div>
-
-    </div> -->
-
-    
+  <form [formGroup]="editarUsuarioForm" (ngSubmit)="editarUsuario()">
     <ion-list>
       <ion-item lines="full">
         <ion-label position="floating">Nombre y Apellido</ion-label>
@@ -60,7 +46,7 @@
           formControlName="usu_email"
         ></ion-input>
       </ion-item>
-      
+
       <ion-item lines="full">
         <ion-label position="floating">Telefono</ion-label>
         <ion-input
@@ -68,6 +54,15 @@
           type="text"
           value="usuario.usu_telefono"
           formControlName="usu_telefono"
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Foto de Perfil URL</ion-label>
+        <ion-input
+          type="text"
+          value="imagen"
+          ngModel="{{this.imagen}}"
+          formControlName="usu_imagen"
         ></ion-input>
       </ion-item>
       <ion-item lines="full">
@@ -81,9 +76,7 @@
       </ion-item>
       <ion-row>
         <ion-col>
-          <ion-button expand="block" type="submit"
-            >Guardar!</ion-button
-          >
+          <ion-button expand="block" type="submit">Guardar!</ion-button>
         </ion-col>
       </ion-row>
     </ion-list>

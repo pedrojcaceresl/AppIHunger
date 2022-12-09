@@ -30,11 +30,8 @@ export class ProductoService {
     return this.http.post<Producto[]>(`${this.endPoint}/producto/add`, data);
   }
 
-  public actualizarProducto(data: Observable<Producto[]>, id): Observable<any> {
-    return this.http.put<Producto[]>(
-      `${this.endPoint}/producto/update/${id}`,
-      data
-    );
+  public actualizarProducto(data: Observable<Producto[]>): Observable<any> {
+    return this.http.put<Producto[]>(`${this.endPoint}/producto/update`, data);
   }
 
   public delete(id): Observable<any> {

@@ -46,19 +46,13 @@ const routes: Routes = [
     path: "admin",
     loadChildren: () =>
       import("./admin/admin.module").then((m) => m.AdminPageModule),
-    //canLoad: [AuthGuard],
-  },
-  {
-    path: "admin/usuarios/editar-usuario/:id",
-    loadChildren: () =>
-      import("./admin/usuarios/editar-usuario/editar-usuario.module").then(
-        (m) => m.EditarUsuarioPageModule
-      ),
+    canLoad: [AuthGuard],
   },
   {
     path: "pedidos",
     loadChildren: () =>
       import("./pedidos/pedidos.module").then((m) => m.PedidosPageModule),
+    canLoad: [AuthGuard],
   },
   {
     path: "menu-listado",
@@ -66,6 +60,7 @@ const routes: Routes = [
       import("./menu-listado/menu-listado.module").then(
         (m) => m.MenuListadoPageModule
       ),
+    canLoad: [AuthGuard],
   },
   {
     path: "menu-listado/:categoriaId",
@@ -73,6 +68,7 @@ const routes: Routes = [
       import("./menu-listado/menu-listado.module").then(
         (m) => m.MenuListadoPageModule
       ),
+    canLoad: [AuthGuard],
   },
   {
     path: "detalle-producto/:id",
@@ -88,6 +84,7 @@ const routes: Routes = [
       import(
         "./continuar-finalizar-modal/continuar-finalizar-modal.module"
       ).then((m) => m.ContinuarFinalizarModalPageModule),
+    canLoad: [AuthGuard],
   },
   {
     path: "finalizar-pedido",
@@ -95,33 +92,43 @@ const routes: Routes = [
       import("./finalizar-pedido/finalizar-pedido.module").then(
         (m) => m.FinalizarPedidoPageModule
       ),
+    canLoad: [AuthGuard],
   },
   {
     path: "success",
     loadChildren: () =>
       import("./success/success.module").then((m) => m.SuccessPageModule),
+    canLoad: [AuthGuard],
   },
+
   {
     path: "admin/categorias/editar-categoria/:id",
     loadChildren: () =>
       import(
         "./admin/categorias/editar-categoria/editar-categoria.module"
       ).then((m) => m.EditarCategoriaPageModule),
+    canLoad: [AuthGuard],
   },
   {
     path: "carrito",
     loadChildren: () =>
       import("./carrito/carrito.module").then((m) => m.CarritoPageModule),
+    canLoad: [AuthGuard],
   },
   {
     path: "mi-cuenta",
     loadChildren: () =>
       import("./mi-cuenta/mi-cuenta.module").then((m) => m.MiCuentaPageModule),
-  },  {
-    path: 'informacion-legal',
-    loadChildren: () => import('./informacion-legal/informacion-legal.module').then( m => m.InformacionLegalPageModule)
+    canLoad: [AuthGuard],
   },
-
+  {
+    path: "informacion-legal",
+    loadChildren: () =>
+      import("./informacion-legal/informacion-legal.module").then(
+        (m) => m.InformacionLegalPageModule
+      ),
+    canLoad: [AuthGuard],
+  },
 ];
 
 @NgModule({
